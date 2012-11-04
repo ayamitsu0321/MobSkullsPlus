@@ -4,6 +4,8 @@ import net.minecraft.src.*;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
 import java.util.Random;
+import java.util.List;
+import java.util.Iterator;
 
 public class BlockMobSkull extends BlockContainer
 {
@@ -17,7 +19,8 @@ public class BlockMobSkull extends BlockContainer
 	@Override
 	public int getRenderType()
 	{
-		return -1;
+		return MobSkullsPlus.renderId;
+		//return -1;
 	}
 	
 	@Override
@@ -61,12 +64,12 @@ public class BlockMobSkull extends BlockContainer
 		return new TileEntityMobSkull();
 	}
 	
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
 	@Override
 	public int idPicked(World par1World, int par2, int par3, int par4)
     {
         return MobSkullsPlus.skullItem.shiftedIndex;
-    }
+    }*/
 
     @Override
     public int getDamageValue(World par1World, int par2, int par3, int par4)
@@ -103,17 +106,27 @@ public class BlockMobSkull extends BlockContainer
         {
             if ((par6 & 8) == 0)
             {
-                this.dropBlockAsItem_do(par1World, par2, par3, par4, new ItemStack(Item.skull.shiftedIndex, 1, this.getDamageValue(par1World, par2, par3, par4)));
+                this.dropBlockAsItem_do(par1World, par2, par3, par4, new ItemStack(this.blockID, 1, this.getDamageValue(par1World, par2, par3, par4)));
             }
 
             super.breakBlock(par1World, par2, par3, par4, par5, par6);
         }
     }
 	
-	@Override
+	/*@Override
 	public int idDropped(int par1, Random par2Random, int par3)
     {
         return MobSkullsPlus.skullItem.shiftedIndex;
-    }
+    }*/
 	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void getSubBlocks(int id, CreativeTabs tab, List list)
+	{
+		for (Iterator iterator = MobSkullsList.getMap().keySet().iterator(); iterator.hasNext();)
+		{
+			Integer entityId = (Integer)iterator.next();
+			list.add(new ItemStack(id, 1, entityId.intValue()));
+		}
+	}
 }

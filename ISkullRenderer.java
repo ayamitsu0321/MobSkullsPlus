@@ -12,7 +12,7 @@ public interface ISkullRenderer
 	 */
 	
 	@SideOnly(Side.CLIENT)
-	public void renderSkull(int direction, float par5, int type);
+	public void renderSkull(int direction, float par5, EnumSkullRenderType type);
 	
 	/**
 	 * Block‚Ì‚ ‚½‚è”»’è‚Ìset

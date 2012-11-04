@@ -2,6 +2,8 @@ package ayamitsu.mobskullsplus;
 
 import java.util.Map;
 import java.util.HashMap;
+import net.minecraft.src.ItemStack;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public final class MobSkullsList
 {
@@ -47,14 +49,20 @@ public final class MobSkullsList
 		skullList = new HashMap<Integer, ISkullRenderer>();
 	}
 	
-	public static void registerSkullRenderer(int entityId, ISkullRenderer renderer)
+	public static void registerSkullRenderer(int entityId, String name, ISkullRenderer renderer)
 	{
+		LanguageRegistry.instance().addNameForObject(new ItemStack(MobSkullsPlus.skull.blockID, 1, entityId), "en_US", name);
 		skullList.put(Integer.valueOf(entityId), renderer);
 	}
 	
 	public static ISkullRenderer getSkullRenderer(int entityId)
 	{
 		return skullList.get(Integer.valueOf(entityId));
+	}
+	
+	public static boolean contains(int entityId)
+	{
+		return skullList.containsKey(Integer.valueOf(entityId));
 	}
 	
 	public static Map getMap()

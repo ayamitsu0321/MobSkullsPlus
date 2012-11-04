@@ -1,6 +1,7 @@
 package ayamitsu.mobskullsplus.renderer;
 
 import ayamitsu.mobskullsplus.ISkullRenderer;
+import ayamitsu.mobskullsplus.EnumSkullRenderType;
 
 import net.minecraft.src.*;
 import cpw.mods.fml.common.Side;
@@ -47,7 +48,7 @@ public class SkullRendererDefault implements ISkullRenderer
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void renderSkull(int direction, float par5, int type)
+	public void renderSkull(int direction, float par5, EnumSkullRenderType type)
 	{
 		this.bindTextureByName(this.texture);
         GL11.glDisable(GL11.GL_CULL_FACE);
@@ -56,6 +57,9 @@ public class SkullRendererDefault implements ISkullRenderer
 		{
 			switch (direction)
             {
+	            case -1:
+            		GL11.glTranslatef(0.0F, -0.25F, 0.0F);
+	            	break;
                 case 2:
                     GL11.glTranslatef(0.0F, 0.25F, 0.24F);
                     break;

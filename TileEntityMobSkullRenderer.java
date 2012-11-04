@@ -23,7 +23,7 @@ public class TileEntityMobSkullRenderer extends TileEntitySpecialRenderer
     	ISkullRenderer renderer = MobSkullsList.getSkullRenderer(par6);
         GL11.glPushMatrix();
     	GL11.glTranslatef(par1 + 0.5F, par2, par3 + 0.5F);
-    	renderer.renderSkull(par4, par5, par6);
+    	renderer.renderSkull(par4, par5, EnumSkullRenderType.BLOCK);
 		GL11.glPopMatrix();
     }
 	
