@@ -18,4 +18,9 @@ public interface ISkullRenderer
 	 * Blockのあたり判定のset
 	 */
 	public void setBlockBounds(IBlockAccess iblockaccess, int blockX, int blockY, int blockZ, Block block);
+	
+	/**
+	 * テクスチャ上の番号
+	 */
+	public int getSpriteIndex(int meta);
 }

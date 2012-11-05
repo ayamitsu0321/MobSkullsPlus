@@ -3,6 +3,8 @@ package ayamitsu.mobskullsplus;
 import net.minecraft.src.*;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import java.util.List;
 import java.util.Iterator;
 import org.lwjgl.input.Mouse;
@@ -12,6 +14,8 @@ public class ItemMobSkull extends ItemBlock
 	public ItemMobSkull(int id)
 	{
 		super(id);
+		this.setMaxDamage(0);
+        this.setHasSubtypes(true);
 	}
 	
 	@Override
@@ -113,9 +117,40 @@ public class ItemMobSkull extends ItemBlock
 					ItemStack is1 = ItemStack.copyItemStack(is);
 					is1.stackSize = 1;
 					player.setCurrentItemOrArmor(3, is1);
-					player.inventory.consumeInventoryItem(par4);
+					
+					if (--is.stackSize <= 0)
+					{
+						player.inventory.mainInventory[player.inventory.currentItem] = null;
+                		MinecraftForge.EVENT_BUS.post(new PlayerDestroyItemEvent(player, is));
+					}
+				}
+			}
+		}
+		else if (entity instanceof EntityLiving)
+		{
+			EntityLiving mob = (EntityLiving)entity;
+			ItemStack helmet = mob.getCurrentArmor(3);
+			
+			if (helmet == null)
+			{
+				ItemStack is1 = ItemStack.copyItemStack(is);
+				is1.stackSize = 1;
+				mob.setCurrentItemOrArmor(4, is1);
+				
+				if (--is.stackSize <= 0)
+				{
+					mob.setCurrentItemOrArmor(4, null);
 				}
 			}
 		}
 	}
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public int getIconFromDamage(int meta)
+    {
+    	ISkullRenderer renderer = MobSkullsList.getSkullRenderer(meta);
+    	return renderer == null ? 0 : renderer.getSpriteIndex(meta);
+    }
+
 }

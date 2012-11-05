@@ -20,10 +20,12 @@ public class SkullRendererDefault implements ISkullRenderer
 	private float ySize = 0.5F;
 	private float zSize = 0.5F;
 	private boolean isAlpha = false;
+	private final int spriteIndex;
 	
-	public SkullRendererDefault(ModelBase modelbase)
+	public SkullRendererDefault(int tex, ModelBase modelbase)
 	{
 		this.model = modelbase;
+		this.spriteIndex = tex;
 	}
 	
 	public SkullRendererDefault setTextureFile(String str)
@@ -44,6 +46,12 @@ public class SkullRendererDefault implements ISkullRenderer
 	{
 		this.isAlpha = flag;
 		return this;
+	}
+	
+	@Override
+	public int getSpriteIndex(int meta)
+	{
+		return this.spriteIndex;
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -90,6 +98,7 @@ public class SkullRendererDefault implements ISkullRenderer
         GL11.glScalef(-1.0F, -1.0F, 1.0F);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
 		model.render((Entity)null, 0.0F, 0.0F, 0.0F, par5, 0.0F, var10);
+		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 	}
 	
 	@Override

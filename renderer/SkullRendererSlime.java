@@ -26,6 +26,12 @@ public class SkullRendererSlime implements ISkullRenderer
 		this.subModel = new ModelSkullSlime(0);
 	}
 	
+	@Override
+	public int getSpriteIndex(int meta)
+	{
+		return 6;
+	}
+	
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderSkull(int direction, float par5, EnumSkullRenderType type)
@@ -70,6 +76,7 @@ public class SkullRendererSlime implements ISkullRenderer
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		subModel.render((Entity)null, 0.0F, 0.0F, 0.0F, par5, 0.0F, var10);
+		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 	}
 	
 	@Override

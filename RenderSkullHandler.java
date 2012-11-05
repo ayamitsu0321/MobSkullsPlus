@@ -14,15 +14,25 @@ public class RenderSkullHandler implements ISimpleBlockRenderingHandler
 		this.renderId = id;
 	}
 	
+	@Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
 	{
 		ISkullRenderer skullRenderer = MobSkullsList.getSkullRenderer(metadata);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glScalef(1.8F, 1.8F, 1.8F);
-		skullRenderer.renderSkull(-1, 90F, EnumSkullRenderType.EQUIPPED);
-		//TileEntityMobSkullRenderer.skullRenderer.doRenderSkull(0F, 0F, 0F, -1, 0F, metadata);
+		
+		if (skullRenderer != null)
+		{
+			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			GL11.glScalef(1.8F, 1.8F, 1.8F);
+			skullRenderer.renderSkull(-1, 90F, EnumSkullRenderType.EQUIPPED);
+			GL11.glScalef(1.0F, 1.0F, -1.0F);
+			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+			GL11.glEnable(GL11.GL_CULL_FACE);
+		}
+		
+		////TileEntityMobSkullRenderer.skullRenderer.doRenderSkull(0F, 0F, 0F, -1, 0F, metadata);
 	}
 
+	@Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
 	{
 		if (this.renderId == modelId)
@@ -46,11 +56,13 @@ public class RenderSkullHandler implements ISimpleBlockRenderingHandler
 		return false;*/
 	}
 
+	@Override
     public boolean shouldRender3DInInventory()
 	{
 		return true;
 	}
 
+	@Override
     public int getRenderId()
 	{
 		return this.renderId;

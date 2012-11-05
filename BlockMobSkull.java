@@ -12,10 +12,11 @@ public class BlockMobSkull extends BlockContainer
 	public BlockMobSkull(int id)
 	{
 		super(id, Material.circuits);
-		this.blockIndexInTexture = 104;
+		//this.blockIndexInTexture = 104;
 		this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
 	}
 	
+	// Renderするタイプ
 	@Override
 	public int getRenderType()
 	{
@@ -23,18 +24,21 @@ public class BlockMobSkull extends BlockContainer
 		//return -1;
 	}
 	
+	// 光を透過するか
 	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
 	}
 	
+	// Renderするときは普通のBlockじゃないよ(つまり土Blockみたいなのではない)
 	@Override
 	public boolean renderAsNormalBlock()
 	{
 		return false;
 	}
 	
+	// サイズの設定
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
 	{
@@ -44,6 +48,7 @@ public class BlockMobSkull extends BlockContainer
 		renderer.setBlockBounds(par1IBlockAccess, par2, par3, par4, this);
 	}
 	
+	// サイズの取得
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
 	{
@@ -51,6 +56,7 @@ public class BlockMobSkull extends BlockContainer
 		return super.getCollisionBoundingBoxFromPool(par1World, par2, par3, par4);
 	}
 	
+	// おかれたとき
 	@Override
 	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving)
 	{
@@ -58,6 +64,7 @@ public class BlockMobSkull extends BlockContainer
 		par1World.setBlockMetadataWithNotify(par2, par3, par4, var6);
 	}
 	
+	// BlockContainerというかTileEntityをもつBlockに必須
 	@Override
 	public TileEntity createNewTileEntity(World par1World)
 	{
@@ -71,6 +78,7 @@ public class BlockMobSkull extends BlockContainer
         return MobSkullsPlus.skullItem.shiftedIndex;
     }*/
 
+	// Block自体がドロップするときにEntityItemにつけるメタデータ
     @Override
     public int getDamageValue(World par1World, int par2, int par3, int par4)
     {
@@ -78,15 +86,18 @@ public class BlockMobSkull extends BlockContainer
         return var5 instanceof TileEntityMobSkull ? ((TileEntityMobSkull)var5).getEntityId() : super.getDamageValue(par1World, par2, par3, par4);
     }
 
+	// ドロップ時のメタデータ
 	@Override
     public int damageDropped(int par1)
     {
         return par1;
     }
 	
+	// アイテムのドロップ
 	@Override
     public void dropBlockAsItemWithChance(World par1World, int par2, int par3, int par4, int par5, float par6, int par7) {}
 	
+	// 採掘されたとき
 	@Override
 	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer)
     {
@@ -99,6 +110,7 @@ public class BlockMobSkull extends BlockContainer
         super.onBlockHarvested(par1World, par2, par3, par4, par5, par6EntityPlayer);
     }
 	
+	// こわされたとき
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
     {
@@ -113,12 +125,21 @@ public class BlockMobSkull extends BlockContainer
         }
     }
 	
+	// テクスチャ
+	/*@Override
+	public int getBlockTextureFromSideAndMetadata(int side, int meta)
+	{
+		ISkullRenderer renderer = MobSkullsList.getSkullRenderer(meta);
+		return renderer == null ? 0 : renderer.getSpriteIndex();
+	}*/
+	
 	/*@Override
 	public int idDropped(int par1, Random par2Random, int par3)
     {
         return MobSkullsPlus.skullItem.shiftedIndex;
     }*/
 	
+	// クリエイティブのタブに表示
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(int id, CreativeTabs tab, List list)

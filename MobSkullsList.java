@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.HashMap;
 import net.minecraft.src.ItemStack;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.client.SpriteHelper;
 
 public final class MobSkullsList
 {
@@ -47,6 +49,24 @@ public final class MobSkullsList
 		
 		hasInit = true;
 		skullList = new HashMap<Integer, ISkullRenderer>();
+		SpriteHelper.registerSpriteMapForFile(MobSkullsPlus.terrain, 
+			"0000000000000000" +
+			"0000001111111111" +
+			"1111111111111111" +
+			"1111111111111111" +
+			"1111111111111111" +
+			"1111111111111111" +
+			"1111111111111111" +
+			"1111111111111111" +
+			"1111111111111111" +
+			"1111111111111111" +
+			"1111111111111111" +
+			"1111111111111111" +
+			"1111111111111111" +
+			"1111111111111111" +
+			"1111111111111111" +
+			"1111111111111111"
+		);
 	}
 	
 	public static void registerSkullRenderer(int entityId, String name, ISkullRenderer renderer)
@@ -63,6 +83,11 @@ public final class MobSkullsList
 	public static boolean contains(int entityId)
 	{
 		return skullList.containsKey(Integer.valueOf(entityId));
+	}
+	
+	public static int addOverride(String tex)
+	{
+		return RenderingRegistry.addTextureOverride(MobSkullsPlus.terrain, tex);
 	}
 	
 	public static Map getMap()

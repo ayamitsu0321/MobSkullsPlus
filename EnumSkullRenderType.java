@@ -4,5 +4,4 @@ public enum EnumSkullRenderType
 {
 	BLOCK,
 	EQUIPPED,
-	HELMET
 }

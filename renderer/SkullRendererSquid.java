@@ -19,6 +19,12 @@ public class SkullRendererSquid implements ISkullRenderer
 		this.model = new ModelSkullSquid();
 	}
 	
+	@Override
+	public int getSpriteIndex(int meta)
+	{
+		return 5;
+	}
+	
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderSkull(int direction, float par5, EnumSkullRenderType type)
@@ -63,6 +69,7 @@ public class SkullRendererSquid implements ISkullRenderer
         GL11.glEnable(GL11.GL_ALPHA_TEST);
 		GL11.glScalef(scale, scale, scale);
 		model.render((Entity)null, 0.0F, 0.0F, 0.0F, par5, 0.0F, var10);
+		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 	}
 	
 	@Override
