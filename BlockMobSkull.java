@@ -12,7 +12,7 @@ public class BlockMobSkull extends BlockContainer
 	public BlockMobSkull(int id)
 	{
 		super(id, Material.circuits);
-		//this.blockIndexInTexture = 104;
+		this.blockIndexInTexture = 104;
 		this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
 	}
 	

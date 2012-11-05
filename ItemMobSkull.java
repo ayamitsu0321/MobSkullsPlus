@@ -19,7 +19,7 @@ public class ItemMobSkull extends ItemBlock
 	}
 	
 	@Override
-	public boolean onItemUseFirst(ItemStack is, EntityPlayer player, World world, int blockX, int blockY, int blockZ, int face, float hitX, float hitY, float hitZ)
+	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int blockX, int blockY, int blockZ, int face, float hitX, float hitY, float hitZ)
 	{
 		// ‰º–Ê
 		if (face == 0 || !world.getBlockMaterial(blockX, blockY, blockZ).isSolid())
@@ -89,6 +89,58 @@ public class ItemMobSkull extends ItemBlock
 		}
 	}
 	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public boolean canPlaceItemBlockOnSide(World world, int blockX, int blockY, int blockZ, int face, EntityPlayer player, ItemStack is)
+	{
+		// ‰º–Ê
+		if (face == 0 || !world.getBlockMaterial(blockX, blockY, blockZ).isSolid() || !MobSkullsList.contains(is.getItemDamage()))
+		{
+			return false;
+		}
+		else
+		{
+			if (face == 1)
+			{
+				++blockY;
+			}
+
+			if (face == 2)
+			{
+				--blockZ;
+			}
+
+			if (face == 3)
+			{
+				++blockZ;
+			}
+
+			if (face == 4)
+			{
+				--blockX;
+			}
+
+			if (face == 5)
+			{
+				++blockX;
+			}
+
+			if (!player.func_82247_a(blockX, blockY, blockZ, face, is))
+			{
+				return false;
+			}
+			else if (!Block.blocksList[this.getBlockID()].canPlaceBlockAt(world, blockX, blockY, blockZ))
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+	}
+	
+	@Override
 	public int getMetadata(int par1)
     {
         return par1;
@@ -152,5 +204,11 @@ public class ItemMobSkull extends ItemBlock
     	ISkullRenderer renderer = MobSkullsList.getSkullRenderer(meta);
     	return renderer == null ? 0 : renderer.getSpriteIndex(meta);
     }
+	
+	@Override
+	public String getTextureFile()
+	{
+		return MobSkullsPlus.terrain;
+	}
 
 }

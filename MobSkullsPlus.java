@@ -51,7 +51,6 @@ public class MobSkullsPlus
 		MinecraftForgeClient.preloadTexture(terrain);
 		this.renderId = RenderingRegistry.getNextAvailableRenderId();
 		this.skull = new BlockMobSkull(3422).setBlockName("mobSkull").setCreativeTab(CreativeTabs.tabDecorations);
-		this.skull.setTextureFile(terrain);
 		//this.skullItem = new ItemMobSkull(12455, this.skull);
 		GameRegistry.registerBlock(this.skull);
 		Item.itemsList[this.skull.blockID] = null;

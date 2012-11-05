@@ -26,11 +26,6 @@ public class TileEntityMobSkull extends TileEntity
 		super.readFromNBT(nbttagcompound);
 		this.entityId = nbttagcompound.getByte("EntityID");
 		this.rotation = nbttagcompound.getByte("Rot");
-		
-		if (!MobSkullsList.contains(this.entityId))
-		{
-			this.worldObj.setBlockAndMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 0, 0);
-		}
 	}
 	
 	@Override
