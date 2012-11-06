@@ -62,26 +62,25 @@ public class MobSkullsPlus
 		
 		ModelBase defaultHead = new ModelSkeletonHead(0, 0, 64, 32);
 		ModelBase specilaHead = new ModelSkeletonHead(0, 0, 64, 64);
-		/*
+		ModelBase multiHead = new ModelSkullSpider();
+		ModelBase endermanHead = new ModelSkullEnderman();
+		ModelBase bipedHead = new ModelSkullBiped(0.0F, 0.0F, 64, 64);
+		
 		MobSkullsList.registerSkullRenderer(0, "Creeper Head", ((SkullRendererDefault)new SkullRendererDefault(4, defaultHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/creeper.png"));
 		MobSkullsList.registerSkullRenderer(1, "Skeleton Head", ((SkullRendererDefault)new SkullRendererDefault(0, defaultHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/skeleton.png"));
 		MobSkullsList.registerSkullRenderer(2, "Zombie Head", ((SkullRendererDefault)new SkullRendererDefault(2, specilaHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/zombie.png"));
-		MobSkullsList.registerSkullRenderer(3, "PigZombie Head", ((SkullRendererDefault)new SkullRendererDefault(7, specilaHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/pigzombie.png"));
+		MobSkullsList.registerSkullRenderer(3, "PigZombie Head", ((SkullRendererDefault)new SkullRendererDefault(7, bipedHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/pigzombie.png"));
 		MobSkullsList.registerSkullRenderer(4, "Blaze Head", ((SkullRendererDefault)new SkullRendererDefault(11, defaultHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/fire.png"));
 		MobSkullsList.registerSkullRenderer(5, "Wither Head", ((SkullRendererDefault)new SkullRendererDefault(22, specilaHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/wither.png"));
 		MobSkullsList.registerSkullRenderer(6, "Squid Head", new SkullRendererSquid());
 		MobSkullsList.registerSkullRenderer(7, "Slime Head", new SkullRendererSlime());
 		MobSkullsList.registerSkullRenderer(8, "MagmaCube Head", ((SkullRendererDefault)new SkullRendererDefault(12, new ModelSkullMagmaCube())).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/lava.png"));
-		*/
-		MobSkullsList.registerSkullRenderer(50, "Creeper Head", ((SkullRendererDefault)new SkullRendererDefault(4, defaultHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/creeper.png"));
-		MobSkullsList.registerSkullRenderer(51, "Skeleton Head", ((SkullRendererDefault)new SkullRendererDefault(0, defaultHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/skeleton.png"));
-		MobSkullsList.registerSkullRenderer(54, "Zombie Head", ((SkullRendererDefault)new SkullRendererDefault(2, specilaHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/zombie.png"));
-		MobSkullsList.registerSkullRenderer(57, "PigZombie Head", ((SkullRendererDefault)new SkullRendererDefault(7, specilaHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/pigzombie.png"));
-		MobSkullsList.registerSkullRenderer(61, "Blaze Head", ((SkullRendererDefault)new SkullRendererDefault(11, defaultHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/fire.png"));
-		MobSkullsList.registerSkullRenderer(64, "Wither Head", ((SkullRendererDefault)new SkullRendererDefault(22, specilaHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/wither.png"));
-		MobSkullsList.registerSkullRenderer(94, "Squid Head", new SkullRendererSquid());
-		MobSkullsList.registerSkullRenderer(55, "Slime Head", new SkullRendererSlime());
-		MobSkullsList.registerSkullRenderer(62, "MagmaCube Head", ((SkullRendererDefault)new SkullRendererDefault(12, new ModelSkullMagmaCube())).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/lava.png"));
-		
+		MobSkullsList.registerSkullRenderer(9, "Wither Skeleton Head", ((SkullRendererDefault)new SkullRendererDefault(1, defaultHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/skeleton_wither.png"));
+		MobSkullsList.registerSkullRenderer(10, "Head", ((SkullRendererDefault)new SkullRendererDefault(3, defaultHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/char.png"));
+		MobSkullsList.registerSkullRenderer(11, "Spider Head", ((SkullRendererMulti)new SkullRendererMulti(9, multiHead, multiHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/spider.png", "/mob/spider_eyes.png").setAlphaSpecial(true));
+		MobSkullsList.registerSkullRenderer(12, "CaveSpider Head", ((SkullRendererMulti)new SkullRendererMulti(10, multiHead, multiHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/cavespider.png", "/mob/spider_eyes.png").setAlphaSpecial(true));
+		MobSkullsList.registerSkullRenderer(13, "Enderman Head", ((SkullRendererMulti)new SkullRendererMulti(8, endermanHead, endermanHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/enderman.png", "/mob/enderman_eyes.png").setAlphaSpecial(true));
+		MobSkullsList.registerSkullRenderer(14, "Ghast Head", ((SkullRendererCube)new SkullRendererCube(13, new ModelSkullGhast())).setTextureFile("/mob/ghast.png"));
+		MobSkullsList.registerSkullRenderer(15, "Snowman Head", ((SkullRendererDefault)new SkullRendererDefault(14, specilaHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/snowman.png"));
 	}
 }
