@@ -24,10 +24,11 @@ public class SkullRendererSheep implements ISkullRenderer
 	private String subTex = "";
 	private final int spriteIndex;
 	
-	public SkullRendererSheep()
+	public SkullRendererSheep(int tex)
 	{
 		this.mainModel = new ModelSkullSheep1();
 		this.subModel = new ModelSkullSheep2();
+		this.spriteIndex = tex;
 	}
 	
 	public SkullRendererSheep setTextureFile(String str, String str1)
@@ -37,7 +38,7 @@ public class SkullRendererSheep implements ISkullRenderer
 		return this;
 	}
 	
-	public SkullRendererMulti setSize(float x, float y, float z)
+	public SkullRendererSheep setSize(float x, float y, float z)
 	{
 		this.xSize = x;
 		this.ySize = y;
@@ -57,6 +58,8 @@ public class SkullRendererSheep implements ISkullRenderer
 	{
 		this.bindTextureByName(this.mainTex);
         GL11.glDisable(GL11.GL_CULL_FACE);
+		
+		GL11.glTranslatef(0.0F, 0.0625F, 0.0F);
 		
 		if (direction != 1)
 		{

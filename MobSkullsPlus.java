@@ -82,5 +82,7 @@ public class MobSkullsPlus
 		MobSkullsList.registerSkullRenderer(13, "Enderman Head", ((SkullRendererMulti)new SkullRendererMulti(8, endermanHead, endermanHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/enderman.png", "/mob/enderman_eyes.png").setAlphaSpecial(true));
 		MobSkullsList.registerSkullRenderer(14, "Ghast Head", ((SkullRendererCube)new SkullRendererCube(13, new ModelSkullGhast())).setTextureFile("/mob/ghast.png"));
 		MobSkullsList.registerSkullRenderer(15, "Snowman Head", ((SkullRendererDefault)new SkullRendererDefault(14, specilaHead)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/snowman.png"));
+		MobSkullsList.registerSkullRenderer(16, "Sheep Head", ((SkullRendererSheep)new SkullRendererSheep(17)).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/sheep_fur.png", "/mob/sheep.png"));
+		MobSkullsList.registerSkullRenderer(17, "Cow Head", ((SkullRendererDefault)new SkullRendererDefault(18, new ModelSkullCow())).setSize(0.5F, 0.5F, 0.5F).setTextureFile("/mob/cow.png"));
 	}
 }
