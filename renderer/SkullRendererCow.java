@@ -1,8 +1,7 @@
 package ayamitsu.mobskullsplus.renderer;
 
 import ayamitsu.mobskullsplus.ISkullRenderer;
-import ayamitsu.mobskullsplus.model.ModelSkullSheep1;
-import ayamitsu.mobskullsplus.model.ModelSkullSheep2;
+import ayamitsu.mobskullsplus.model.ModelSkullCow;
 import ayamitsu.mobskullsplus.EnumSkullRenderType;
 
 import net.minecraft.src.*;
@@ -11,34 +10,30 @@ import cpw.mods.fml.common.asm.SideOnly;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class SkullRendererSheep implements ISkullRenderer
+public class SkullRendererCow implements ISkullRenderer
 {
 	public static final float MIN = 0.0F;
 	public static final float MAX = 1.0F;
-	private ModelSkullSheep1 mainModel;
-	private ModelSkullSheep2 subModel;
+	private ModelSkullCow model;
 	private float xSize = 0.5F;
 	private float ySize = 0.5F;
 	private float zSize = 0.5F;
-	private String mainTex = "";
-	private String subTex = "";
+	private String texture = "";
 	private final int spriteIndex;
 	
-	public SkullRendererSheep(int tex)
+	public SkullRendererCow(int tex)
 	{
-		this.mainModel = new ModelSkullSheep1();
-		this.subModel = new ModelSkullSheep2();
+		this.model = new ModelSkullCow();
 		this.spriteIndex = tex;
 	}
 	
-	public SkullRendererSheep setTextureFile(String str, String str1)
+	public SkullRendererCow setTextureFile(String str)
 	{
-		this.mainTex = str;
-		this.subTex = str1;
+		this.texture = str;
 		return this;
 	}
 	
-	public SkullRendererSheep setSize(float x, float y, float z)
+	public SkullRendererCow setSize(float x, float y, float z)
 	{
 		this.xSize = x;
 		this.ySize = y;
@@ -56,10 +51,8 @@ public class SkullRendererSheep implements ISkullRenderer
 	@Override
 	public void renderSkull(int direction, float par5, EnumSkullRenderType type)
 	{
-		this.bindTextureByName(this.mainTex);
+		this.bindTextureByName(this.texture);
         GL11.glDisable(GL11.GL_CULL_FACE);
-		
-		GL11.glTranslatef(0.0F, 0.0625F, 0.0F);
 		
 		if (direction != 1)
 		{
@@ -97,10 +90,7 @@ public class SkullRendererSheep implements ISkullRenderer
 		}
 		
         GL11.glEnable(GL11.GL_ALPHA_TEST);
-		this.mainModel.render((Entity)null, 0.0F, 0.0F, 0.0F, par5, 0.0F, var10);
-		
-		this.bindTextureByName(this.subTex);
-		this.subModel.render((Entity)null, 0.0F, 0.0F, 0.0F, par5, 0.0F, var10);
+		this.model.render((Entity)null, 0.0F, 0.0F, 0.0F, par5, 0.0F, var10);
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glDisable(GL11.GL_BLEND);
 	}
