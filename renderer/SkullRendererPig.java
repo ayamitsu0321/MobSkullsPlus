@@ -1,6 +1,8 @@
 package ayamitsu.mobskullsplus.renderer;
 
 import ayamitsu.mobskullsplus.ISkullRenderer;
+import ayamitsu.mobskullsplus.model.ModelSkullBase;
+import ayamitsu.mobskullsplus.model.ModelSkullPig;
 import ayamitsu.mobskullsplus.EnumSkullRenderType;
 
 import net.minecraft.src.*;
@@ -9,66 +11,38 @@ import cpw.mods.fml.common.asm.SideOnly;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class SkullRendererMulti implements ISkullRenderer
+public class SkullRendererPig implements ISkullRenderer
 {
-	/** 最大のサイズは1.0Fと想定 */
 	public static final float MIN = 0.0F;
 	public static final float MAX = 1.0F;
-	ModelBase mainModel;
-	ModelBase subModel;
-	private String mainTex = "";
-	private String subTex = "";
+	private ModelSkullBase mainModel;
+	private ModelSkullBase subModel;
 	private float xSize = 0.5F;
 	private float ySize = 0.5F;
 	private float zSize = 0.5F;
-	private boolean mainAlpha = false;
-	private boolean subAlpha = false;
+	private String mainTex = "";
+	private String subTex = "";
 	private final int spriteIndex;
-	private boolean subAlphaSpecial = false;;
 	
-	public SkullRendererMulti(int tex, ModelBase modelbase, ModelBase modelbase1)
+	public SkullRendererPig(int tex)
 	{
-		this.mainModel = modelbase;
-		this.subModel = modelbase1;
+		this.mainModel = new ModelSkullPig();
+		this.subModel = new ModelSkullPig(0.5F);
 		this.spriteIndex = tex;
 	}
 	
-	public SkullRendererMulti setTextureFile(String str, String str1)
+	public SkullRendererPig setTextureFile(String str, String str1)
 	{
 		this.mainTex = str;
 		this.subTex = str1;
 		return this;
 	}
 	
-	public SkullRendererMulti setSize(float x, float y, float z)
+	public SkullRendererPig setSize(float x, float y, float z)
 	{
 		this.xSize = x;
 		this.ySize = y;
 		this.zSize = z;
-		return this;
-	}
-	
-	public SkullRendererMulti setAlpha(boolean flag)
-	{
-		return this.setAlpha(flag, flag);
-	}
-	
-	public SkullRendererMulti setAlpha(boolean flag, boolean flag1)
-	{
-		this.mainAlpha = flag;
-		this.subAlpha = flag1;
-		return this;
-	}
-		
-	public SkullRendererMulti setAlphaSpecial(boolean flag)
-	{
-		this.subAlphaSpecial = flag;
-		
-		if (flag)
-		{
-			this.setAlpha(flag);
-		}
-		
 		return this;
 	}
 	
@@ -84,13 +58,21 @@ public class SkullRendererMulti implements ISkullRenderer
 	{
 		this.bindTextureByName(this.mainTex);
         GL11.glDisable(GL11.GL_CULL_FACE);
+
+		//GL11.glTranslatef(0.0F, -0.0625F, 0.0F);
+		GL11.glTranslatef(0.0F, 0.05F, 0.0F);
+		
+		if (type == EnumSkullRenderType.EQUIPPED)
+		{
+			GL11.glTranslatef(0.0F, -0.25F, 0.0F);
+		}
 		
 		if (direction != 1)
 		{
 			switch (direction)
             {
 	            case -1:
-            		GL11.glTranslatef(0.0F, -0.25F, 0.0F);
+            		//GL11.glTranslatef(0.0F, -0.25F, 0.0F);
 	            	break;
                 case 2:
                     GL11.glTranslatef(0.0F, 0.25F, 0.24F);
@@ -109,52 +91,30 @@ public class SkullRendererMulti implements ISkullRenderer
                     par5 = 90.0F;
             }
 		}
+		else
+		{
+			
+		}
 		
 		float var10 = 0.0625F;
-		
-		if (this.mainAlpha)
-		{
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		}
-		
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glScalef(-1.0F, -1.0F, 1.0F);
+		float scale = 0.8125F;
+		GL11.glScalef(scale, scale, scale);
+		
+		/*if (type == EnumSkullRenderType.EQUIPPED)
+		{
+			float scale = 1.25F;
+			GL11.glScalef(scale, scale, scale);
+		}*/
+		
         GL11.glEnable(GL11.GL_ALPHA_TEST);
 		this.mainModel.render((Entity)null, 0.0F, 0.0F, 0.0F, par5, 0.0F, var10);
-		GL11.glDisable(GL11.GL_BLEND);
+		
 		this.bindTextureByName(this.subTex);
-		
-		if (this.subAlpha)
-		{
-			GL11.glEnable(GL11.GL_BLEND);
-			
-			if (!this.subAlphaSpecial)
-			{
-				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			}
-			else
-			{
-				float var4 = 1.0F;
-				GL11.glDisable(GL11.GL_ALPHA_TEST);
-				GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-				GL11.glDisable(GL11.GL_LIGHTING);
-				//GL11.glDepthMask(true);//
-				char var5 = 61680;
-				int var6 = var5 % 65536;
-				int var7 = var5 / 65536;
-				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)var6 / 1.0F, (float)var7 / 1.0F);
-				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-				GL11.glEnable(GL11.GL_LIGHTING);
-				GL11.glColor4f(1.0F, 1.0F, 1.0F, var4);
-			}
-			
-		}
-		
 		this.subModel.render((Entity)null, 0.0F, 0.0F, 0.0F, par5, 0.0F, var10);
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glEnable(GL11.GL_ALPHA_TEST);
 	}
 	
 	@Override
