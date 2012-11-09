@@ -10,44 +10,19 @@ import cpw.mods.fml.common.asm.SideOnly;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class SkullRendererCow implements ISkullRenderer
+public class SkullRendererCow extends SkullRendererDefault
 {
-	public static final float MIN = 0.0F;
-	public static final float MAX = 1.0F;
-	private ModelSkullCow model;
-	private float xSize = 0.5F;
-	private float ySize = 0.5F;
-	private float zSize = 0.5F;
-	private String texture = "";
-	private final int spriteIndex;
-	
-	public SkullRendererCow(int tex)
+	public SkullRendererCow(int tex, ModelBase modelbase)
 	{
-		this.model = new ModelSkullCow();
-		this.spriteIndex = tex;
+		super(tex, modelbase);
 	}
 	
-	public SkullRendererCow setTextureFile(String str)
+	public SkullRendererCow(int tex, ModelBase ... modelbase)
 	{
-		this.texture = str;
-		return this;
+		super(tex, modelbase);
 	}
 	
-	public SkullRendererCow setSize(float x, float y, float z)
-	{
-		this.xSize = x;
-		this.ySize = y;
-		this.zSize = z;
-		return this;
-	}
-	
-	@Override
-	public int getSpriteIndex(int meta)
-	{
-		return this.spriteIndex;
-	}
-	
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
 	@Override
 	public void renderSkull(int direction, float par5, EnumSkullRenderType type)
 	{
@@ -93,51 +68,16 @@ public class SkullRendererCow implements ISkullRenderer
 		this.model.render((Entity)null, 0.0F, 0.0F, 0.0F, par5, 0.0F, var10);
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glDisable(GL11.GL_BLEND);
-	}
-	
-	@Override
-	public void setBlockBounds(IBlockAccess iblockaccess, int blockX, int blockY, int blockZ, Block block)
-	{
-		int direction = iblockaccess.getBlockMetadata(blockX, blockY, blockZ) & 7;
+	}*/
 
-        switch (direction)
-        {
-            case 1:
-            default:
-                block.setBlockBounds(this.getMinSize(this.xSize), MIN, this.getMinSize(this.xSize), this.getMaxSize(this.xSize), MIN + this.ySize, this.getMaxSize(this.zSize));
-                break;
-            case 2:
-                block.setBlockBounds(this.getMinSize(this.xSize), this.getMinSize(this.ySize), MAX - this.zSize, this.getMaxSize(this.xSize), this.getMaxSize(this.ySize), MAX);
-                break;
-            case 3:
-                block.setBlockBounds(this.getMinSize(this.xSize), this.getMinSize(this.ySize), MIN, this.getMaxSize(this.xSize), this.getMaxSize(this.ySize), MIN + this.zSize);
-                break;
-            case 4:
-                block.setBlockBounds(MAX - this.xSize, this.getMinSize(this.ySize), this.getMinSize(this.zSize), MAX, this.getMaxSize(this.ySize), this.getMaxSize(this.zSize));
-                break;
-            case 5:
-                block.setBlockBounds(MIN, this.getMinSize(this.ySize), this.getMinSize(this.zSize), MIN + this.xSize, this.getMaxSize(this.ySize), this.getMaxSize(this.zSize));
-        }
-	}
-	
-	private float getMinSize(float size)
-	{
-		return (MAX - size) / 2.0F;
-	}
-	
-	private float getMaxSize(float size)
-	{
-		return MAX - ((MAX - size) / 2.0F);
-	}
-	
 	@SideOnly(Side.CLIENT)
-	protected void bindTextureByName(String par1Str)
-    {
-    	RenderEngine var2 = ModLoader.getMinecraftInstance().renderEngine;
-    	
-        if (var2 != null)
-        {
-            var2.bindTexture(var2.getTexture(par1Str));
-        }
-    }
+	protected void callBackScale(int direction, float rotation, EnumSkullRenderType type)
+	{
+		if (type == EnumSkullRenderType.EQUIPPED)
+		{
+			float scale = 1.25F;
+			GL11.glScalef(scale, scale, scale);
+		}
+	}
+
 }

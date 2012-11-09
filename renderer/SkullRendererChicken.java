@@ -13,7 +13,7 @@ public class SkullRendererChicken extends SkullRendererDefault
 {
 	public SkullRendererChicken(int tex, ModelBase modelbase)
 	{
-		super(tex, new ModelBase[] { modelbase });
+		super(tex, modelbase);
 	}
 	
 	public SkullRendererChicken(int tex, ModelBase ... modelbase)

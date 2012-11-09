@@ -1,8 +1,6 @@
 package ayamitsu.mobskullsplus.renderer;
 
 import ayamitsu.mobskullsplus.ISkullRenderer;
-import ayamitsu.mobskullsplus.model.ModelSkullSheep1;
-import ayamitsu.mobskullsplus.model.ModelSkullSheep2;
 import ayamitsu.mobskullsplus.EnumSkullRenderType;
 
 import net.minecraft.src.*;
@@ -11,48 +9,38 @@ import cpw.mods.fml.common.asm.SideOnly;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class SkullRendererSheep implements ISkullRenderer
+public class SkullRendererSheep extends SkullRendererMulti
 {
-	public static final float MIN = 0.0F;
-	public static final float MAX = 1.0F;
-	private ModelSkullSheep1 mainModel;
-	private ModelSkullSheep2 subModel;
-	private float xSize = 0.5F;
-	private float ySize = 0.5F;
-	private float zSize = 0.5F;
-	private String mainTex = "";
-	private String subTex = "";
-	private final int spriteIndex;
-	
-	public SkullRendererSheep(int tex)
+	public SkullRendererSheep(int tex, ModelBase modelbase, ModelBase modelbase1)
 	{
-		this.mainModel = new ModelSkullSheep1();
-		this.subModel = new ModelSkullSheep2();
-		this.spriteIndex = tex;
-	}
-	
-	public SkullRendererSheep setTextureFile(String str, String str1)
-	{
-		this.mainTex = str;
-		this.subTex = str1;
-		return this;
-	}
-	
-	public SkullRendererSheep setSize(float x, float y, float z)
-	{
-		this.xSize = x;
-		this.ySize = y;
-		this.zSize = z;
-		return this;
+		super(tex, modelbase, modelbase1);
 	}
 	
 	@Override
-	public int getSpriteIndex(int meta)
+	@SideOnly(Side.CLIENT)
+	protected void doTranslate(int direction, float rotation, EnumSkullRenderType type)
 	{
-		return this.spriteIndex;
+		super.doTranslate(direction, rotation, type);
+		GL11.glTranslatef(0.0F, 0.0625F, 0.0F);
+		
+		if (direction == -1)
+		{
+			GL11.glTranslatef(0.0F, 0.25F, 0.0F);
+		}
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
+	protected void callBackScale(int direction, float rotation, EnumSkullRenderType type)
+	{
+		if (type == EnumSkullRenderType.EQUIPPED)
+		{
+			float scale = 1.25F;
+			GL11.glScalef(scale, scale, scale);
+		}
+	}
+	
+	/*@SideOnly(Side.CLIENT)
 	@Override
 	public void renderSkull(int direction, float par5, EnumSkullRenderType type)
 	{
@@ -149,5 +137,5 @@ public class SkullRendererSheep implements ISkullRenderer
         {
             var2.bindTexture(var2.getTexture(par1Str));
         }
-    }
+    }*/
 }

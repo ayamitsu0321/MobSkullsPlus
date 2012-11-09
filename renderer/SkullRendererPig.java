@@ -2,7 +2,6 @@ package ayamitsu.mobskullsplus.renderer;
 
 import ayamitsu.mobskullsplus.ISkullRenderer;
 import ayamitsu.mobskullsplus.model.ModelSkullBase;
-import ayamitsu.mobskullsplus.model.ModelSkullPig;
 import ayamitsu.mobskullsplus.EnumSkullRenderType;
 
 import net.minecraft.src.*;
@@ -11,27 +10,38 @@ import cpw.mods.fml.common.asm.SideOnly;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class SkullRendererPig implements ISkullRenderer
+public class SkullRendererPig extends SkullRendererMulti
 {
-	public static final float MIN = 0.0F;
-	public static final float MAX = 1.0F;
-	private ModelSkullBase mainModel;
-	private ModelSkullBase subModel;
-	private float xSize = 0.5F;
-	private float ySize = 0.5F;
-	private float zSize = 0.5F;
-	private String mainTex = "";
-	private String subTex = "";
-	private final int spriteIndex;
-	
-	public SkullRendererPig(int tex)
+	public SkullRendererPig(int tex, ModelBase modelbase, ModelBase modelbase1)
 	{
-		this.mainModel = new ModelSkullPig();
-		this.subModel = new ModelSkullPig(0.5F);
-		this.spriteIndex = tex;
+		super(tex, modelbase, modelbase1);
 	}
 	
-	public SkullRendererPig setTextureFile(String str, String str1)
+	@SideOnly(Side.CLIENT)
+	protected void callBackScale(int direction, float rotation, EnumSkullRenderType type)
+	{
+		float scale = 0.8125F;
+		GL11.glScalef(scale, scale, scale);
+		
+		/*if (type == EnumSkullRenderType.EQUIPPED)
+		{
+			float scale = 1.25F;
+			GL11.glScalef(scale, scale, scale);
+		}*/
+	}
+
+	@SideOnly(Side.CLIENT)
+	protected void doTranslate(int direction, float rotation, EnumSkullRenderType type)
+	{
+		super.doTranslate(direction, rotation, type);
+		
+		if (direction == -1)
+		{
+			GL11.glTranslatef(0.0F, 0.25F, 0.0F);
+		}
+	}
+	
+	/*public SkullRendererPig setTextureFile(String str, String str1)
 	{
 		this.mainTex = str;
 		this.subTex = str1;
@@ -102,11 +112,11 @@ public class SkullRendererPig implements ISkullRenderer
 		float scale = 0.8125F;
 		GL11.glScalef(scale, scale, scale);
 		
-		/*if (type == EnumSkullRenderType.EQUIPPED)
-		{
-			float scale = 1.25F;
-			GL11.glScalef(scale, scale, scale);
-		}*/
+		//if (type == EnumSkullRenderType.EQUIPPED)
+		//{
+		//	float scale = 1.25F;
+		//	GL11.glScalef(scale, scale, scale);
+		//}
 		
         GL11.glEnable(GL11.GL_ALPHA_TEST);
 		this.mainModel.render((Entity)null, 0.0F, 0.0F, 0.0F, par5, 0.0F, var10);
@@ -161,5 +171,5 @@ public class SkullRendererPig implements ISkullRenderer
         {
             var2.bindTexture(var2.getTexture(par1Str));
         }
-    }
+    }*/
 }

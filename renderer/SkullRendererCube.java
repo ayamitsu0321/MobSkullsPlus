@@ -9,20 +9,19 @@ import cpw.mods.fml.common.asm.SideOnly;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class SkullRendererCube implements ISkullRenderer
+public class SkullRendererCube extends SkullRendererDefault
 {
-	private ModelBase model;
-	private String texture = "";
-	private final int spriteIndex;
-	private boolean isAlpha = false;
-	
 	public SkullRendererCube(int tex, ModelBase modelbase)
 	{
-		this.model = modelbase;
-		this.spriteIndex = tex;
+		super(tex, modelbase);
 	}
 	
-	public SkullRendererCube setTextureFile(String str)
+	public SkullRendererCube(int tex, ModelBase ... modelbase)
+	{
+		super(tex, modelbase);
+	}
+	
+	/*public SkullRendererCube setTextureFile(String str)
 	{
 		this.texture = str;
 		return this;
@@ -38,9 +37,9 @@ public class SkullRendererCube implements ISkullRenderer
 	public int getSpriteIndex(int meta)
 	{
 		return this.spriteIndex;
-	}
+	}*/
 	
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
 	@Override
 	public void renderSkull(int direction, float par5, EnumSkullRenderType type)
 	{
@@ -83,7 +82,7 @@ public class SkullRendererCube implements ISkullRenderer
 		model.render((Entity)null, 0.0F, 0.0F, 0.0F, par5, 0.0F, var1);
 		GL11.glDisable(GL11.GL_BLEND);
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-	}
+	}*/
 	
 	@Override
 	public void setBlockBounds(IBlockAccess iblockaccess, int blockX, int blockY, int blockZ, Block block)
@@ -91,7 +90,17 @@ public class SkullRendererCube implements ISkullRenderer
 		block.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
+	protected void doTranslate(int direction, float rotation, EnumSkullRenderType type)
+	{
+		if (type == EnumSkullRenderType.EQUIPPED)
+		{
+			GL11.glTranslatef(0.0F, -0.25F, 0.0F);
+		}
+	}
+	
+	/*@SideOnly(Side.CLIENT)
 	protected void bindTextureByName(String par1Str)
     {
     	RenderEngine var2 = ModLoader.getMinecraftInstance().renderEngine;
@@ -100,5 +109,5 @@ public class SkullRendererCube implements ISkullRenderer
         {
             var2.bindTexture(var2.getTexture(par1Str));
         }
-    }
+    }*/
 }

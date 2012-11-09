@@ -15,7 +15,8 @@ public class SkullRendererDefault extends SkullRendererBase
 	
 	public SkullRendererDefault(int tex, ModelBase modelbase)
 	{
-		this(tex, new ModelBase[] { modelbase });
+		super(modelbase);
+		this.spriteIndex = tex;
 	}
 	
 	public SkullRendererDefault(int tex, ModelBase ... modelbase)

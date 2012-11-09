@@ -35,6 +35,11 @@ public abstract class SkullRendererBase implements ISkullRenderer
 		}
 	}
 	
+	public SkullRendererBase(ModelBase modelbase)
+	{
+		this(new ModelBase[] { modelbase });
+	}
+	
 	public SkullRendererBase setTexture(String str)
 	{
 		this.texture = str;

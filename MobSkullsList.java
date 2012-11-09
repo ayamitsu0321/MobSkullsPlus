@@ -11,34 +11,6 @@ public final class MobSkullsList
 {
 	private static boolean hasInit = false;
 	private static Map<Integer, ISkullRenderer> skullList;
-	/*private static final int[] ids = new int[] {
-		50, // creeper
-		51, // skeleton
-		52, // spider
-		54, // zombie
-		55, // slime
-		56, // ghast
-		57, // pigzombie
-		58, // enderman
-		59, // cave_spider
-		61, // blaze
-		62, // magmacube
-		63, // dragon
-		64, // wither
-		65, // bat
-		66, // witch
-		90, // pig
-		91, // sheep
-		92, // cow
-		93, // chicken
-		94, // squid ‚­º:œc
-		95, // wolf
-		96, // mushroom_cow
-		97, // snowman
-		98, // ocelot
-		99, // iron_golem
-		120,// villager
-	};*/
 	
 	private static void init()
 	{
@@ -51,7 +23,7 @@ public final class MobSkullsList
 		skullList = new HashMap<Integer, ISkullRenderer>();
 		SpriteHelper.registerSpriteMapForFile(MobSkullsPlus.terrain, 
 			"0000000000000000" +
-			"0000001111111111" +
+			"0000000111111111" +
 			"1111111111111111" +
 			"1111111111111111" +
 			"1111111111111111" +

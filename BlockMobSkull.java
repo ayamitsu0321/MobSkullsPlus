@@ -70,13 +70,6 @@ public class BlockMobSkull extends BlockContainer
 	{
 		return new TileEntityMobSkull();
 	}
-	
-	/*@SideOnly(Side.CLIENT)
-	@Override
-	public int idPicked(World par1World, int par2, int par3, int par4)
-    {
-        return MobSkullsPlus.skullItem.shiftedIndex;
-    }*/
 
 	// Block自体がドロップするときにEntityItemにつけるメタデータ
     @Override
@@ -124,20 +117,6 @@ public class BlockMobSkull extends BlockContainer
             super.breakBlock(par1World, par2, par3, par4, par5, par6);
         }
     }
-	
-	// テクスチャ
-	/*@Override
-	public int getBlockTextureFromSideAndMetadata(int side, int meta)
-	{
-		ISkullRenderer renderer = MobSkullsList.getSkullRenderer(meta);
-		return renderer == null ? 0 : renderer.getSpriteIndex();
-	}*/
-	
-	/*@Override
-	public int idDropped(int par1, Random par2Random, int par3)
-    {
-        return MobSkullsPlus.skullItem.shiftedIndex;
-    }*/
 	
 	// クリエイティブのタブに表示
 	@SideOnly(Side.CLIENT)

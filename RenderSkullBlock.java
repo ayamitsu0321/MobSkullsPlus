@@ -5,11 +5,11 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class RenderSkullHandler implements ISimpleBlockRenderingHandler
+public class RenderSkullBlock implements ISimpleBlockRenderingHandler
 {
 	int renderId;
 	
-	public RenderSkullHandler(int id)
+	public RenderSkullBlock(int id)
 	{
 		this.renderId = id;
 	}

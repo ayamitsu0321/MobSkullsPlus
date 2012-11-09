@@ -15,7 +15,7 @@ public class SkullRendererAlpha extends SkullRendererDefault
 	
 	public SkullRendererAlpha(int tex, ModelBase modelbase)
 	{
-		super(tex, new ModelBase[] { modelbase });
+		super(tex, modelbase);
 	}
 	
 	public SkullRendererAlpha(int tex, ModelBase ... modelbase)
