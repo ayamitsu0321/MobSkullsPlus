@@ -165,12 +165,17 @@ public class ItemMobSkull extends ItemBlock
 		// マウスの入力があれだから、どうにかPacketでやらないと
 		// どうしましょ
 		
+		if (world.isRemote || is == null)
+		{
+			return;
+		}
+		
 		if (entity instanceof EntityPlayer)
 		{
 			EntityPlayer player = (EntityPlayer)entity;
 			
 			// 右クリック
-			if (player.swingProgressInt == -1 && org.lwjgl.input.Mouse.isButtonDown(0) && isHeld)
+			if (player.swingProgressInt == -1 /*&& org.lwjgl.input.Mouse.isButtonDown(0) */&& isHeld)
 			{
 				ItemStack helmet = player.getCurrentArmor(3);
 				
@@ -179,10 +184,12 @@ public class ItemMobSkull extends ItemBlock
 					ItemStack is1 = ItemStack.copyItemStack(is);
 					is1.stackSize = 1;
 					player.setCurrentItemOrArmor(3, is1);
+					//player.inventory.consumeInventoryItem(par4);
 					
 					if (--is.stackSize <= 0)
 					{
 						player.inventory.mainInventory[player.inventory.currentItem] = null;
+						MinecraftForge.EVENT_BUS.post(new PlayerDestroyItemEvent(player, is));
 					}
 				}
 			}
