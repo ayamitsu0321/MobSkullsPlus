@@ -12,7 +12,7 @@ import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
 import java.util.List;
 import java.util.Iterator;
-import org.lwjgl.input.Mouse;
+//import org.lwjgl.input.Mouse;
 
 public class ItemMobSkull extends ItemBlock
 {
@@ -154,19 +154,23 @@ public class ItemMobSkull extends ItemBlock
 	@Override
 	public String getItemNameIS(ItemStack is)
     {
-    	int entityId = is.getItemDamage();
-        return super.getItemName() + "." + String.valueOf(entityId);
+    	int meta = is.getItemDamage();
+        return super.getItemName() + "." + String.valueOf(meta);
     }
 	
 	@Override
 	public void onUpdate(ItemStack is, World world, Entity entity, int par4, boolean isHeld)
 	{
+		// マルチだとあれなのよね。
+		// マウスの入力があれだから、どうにかPacketでやらないと
+		// どうしましょ
+		
 		if (entity instanceof EntityPlayer)
 		{
 			EntityPlayer player = (EntityPlayer)entity;
 			
 			// 右クリック
-			if (player.swingProgressInt == -1 && Mouse.isButtonDown(0) && isHeld)
+			if (player.swingProgressInt == -1 && org.lwjgl.input.Mouse.isButtonDown(0) && isHeld)
 			{
 				ItemStack helmet = player.getCurrentArmor(3);
 				

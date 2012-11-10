@@ -1,7 +1,6 @@
 package ayamitsu.mobskullsplus.common.registry;
 
 import ayamitsu.mobskullsplus.*;
-import ayamitsu.mobskullsplus.common.blockbounds.BlockBoundsCube;
 import ayamitsu.mobskullsplus.common.*;
 
 import net.minecraft.src.*;
@@ -18,17 +17,20 @@ public final class BlockBoundsRegistry
 	
 	public static void registerBlockBounds(int id, String name, IBlockBounds blockbounds)
 	{
+		init();
 		LanguageRegistry.instance().addNameForObject(new ItemStack(MobSkullsPlus.skull.blockID, 1, id), "en_US", name);
 		blockBoundsMap.put(Integer.valueOf(id), blockbounds);
 	}
 	
 	public static IBlockBounds getBlockBounds(int id)
 	{
+		init();
 		return blockBoundsMap.get(id);
 	}
 	
 	public static Map getMap()
 	{
+		init();
 		return blockBoundsMap;
 	}
 	
@@ -65,13 +67,5 @@ public final class BlockBoundsRegistry
 		registerBlockBounds(21, "Wolf Head", new BlockBoundsCube(0.5F, 0.625F, 0.5F));
 		registerBlockBounds(22, "Chicken Head", new BlockBoundsCube());
 		registerBlockBounds(23, "Golem Head", new BlockBoundsCube(0.5F, 0.625F, 0.5F));
-
-		
-		
-	}
-	
-	static
-	{
-		init();
 	}
 }

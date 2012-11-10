@@ -1,4 +1,4 @@
-package ayamitsu.mobskullsplus.common.blockbounds;
+package ayamitsu.mobskullsplus.common;
 
 import ayamitsu.mobskullsplus.common.IBlockBounds;
 import net.minecraft.src.*;
