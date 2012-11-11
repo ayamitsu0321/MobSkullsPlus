@@ -32,7 +32,7 @@ public class TileEntityMobSkullRenderer extends TileEntitySpecialRenderer
 	
 	public void renderTileEntitySkullAt(TileEntityMobSkull par1TileEntityMobSkull, double par2, double par4, double par6, float par8)
     {
-        this.doRenderSkull((float)par2, (float)par4, (float)par6, par1TileEntityMobSkull.getBlockMetadata() & 7, (float)(par1TileEntityMobSkull.getSkullRotation() * 360) / 16.0F, par1TileEntityMobSkull.getEntityId());
+        this.doRenderSkull((float)par2, (float)par4, (float)par6, par1TileEntityMobSkull.getBlockMetadata() & 7, (float)(par1TileEntityMobSkull.getSkullRotation() * 360) / 16.0F, par1TileEntityMobSkull.getSkullType());
     }
 	
 	@Override

@@ -7,7 +7,7 @@ import cpw.mods.fml.common.asm.SideOnly;
 public class TileEntityMobSkull extends TileEntity
 {
 	/** 描画するタイプ, ItemStackのitemDamageから値をもらう */
-	private int entityId;
+	private int skullType;
 	
 	/** 設置したときの向き */
 	private int rotation;
@@ -16,7 +16,7 @@ public class TileEntityMobSkull extends TileEntity
     public void writeToNBT(NBTTagCompound nbttagcompound)
 	{
 		super.writeToNBT(nbttagcompound);
-		nbttagcompound.setByte("EntityID", (byte)(this.entityId & 255));
+		nbttagcompound.setByte("Type", (byte)(this.skullType & 255));
 		nbttagcompound.setByte("Rot", (byte)(this.rotation & 255));
 	}
 	
@@ -24,7 +24,7 @@ public class TileEntityMobSkull extends TileEntity
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
 		super.readFromNBT(nbttagcompound);
-		this.entityId = nbttagcompound.getByte("EntityID");
+		this.skullType = nbttagcompound.getByte("Type");
 		this.rotation = nbttagcompound.getByte("Rot");
 	}
 	
@@ -46,17 +46,17 @@ public class TileEntityMobSkull extends TileEntity
 	 * EntityのIDをset
 	 * もしこちらで設定したIDに含まれてなかったらZombieのIDをかえす
 	 */
-	public void setEntityId(int id)
+	public void setSkullType(int id)
 	{
-		this.entityId = id;
+		this.skullType = id;
 	}
 	
 	/**
 	 * EntityのIDを取得
 	 */
-	public int getEntityId()
+	public int getSkullType()
 	{
-		return this.entityId;
+		return this.skullType;
 	}
 	
 	/**

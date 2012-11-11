@@ -31,7 +31,7 @@ public class SkullRendererWolf extends SkullRendererDefault
 		
 		if (direction != 1)
 		{
-			float f = 0.365F;// 0.24
+			float f = 0.365F;
 			
 			switch (direction)
 			{

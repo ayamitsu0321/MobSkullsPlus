@@ -27,9 +27,9 @@ public class MobSpawnHook
 		{
 			ItemStack helmet = mob.getCurrentArmor(3);
 			
-			if (helmet == null && mob.getRNG().nextInt(64) == 0)
+			if (helmet == null && mob.getRNG().nextInt(128) == 0)
 			{
-				System.out.println("SET");
+				//System.out.println("SET");
 				int meta = mob.getRNG().nextInt(BlockBoundsRegistry.getMap().size());
 				mob.setCurrentItemOrArmor(4, new ItemStack(MobSkullsPlus.skull.blockID, 1, meta));
 			}

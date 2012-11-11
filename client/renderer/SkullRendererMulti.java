@@ -84,7 +84,6 @@ public class SkullRendererMulti extends SkullRendererDefault
 			GL11.glDisable(GL11.GL_ALPHA_TEST);
 			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
 			GL11.glDisable(GL11.GL_LIGHTING);
-			//GL11.glDepthMask(true);//
 			char var2 = 61680;
 			int var3 = var2 % 65536;
 			int var4 = var2 / 65536;

@@ -26,6 +26,7 @@ import java.util.BitSet;
 @NetworkMod(
 	clientSideRequired = true,
 	serverSideRequired = false,
+	channels = "mobskullsplus",
 	packetHandler = ayamitsu.mobskullsplus.common.PacketHandler.class
 )
 public class MobSkullsPlus

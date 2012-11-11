@@ -10,22 +10,54 @@ import cpw.mods.fml.common.asm.SideOnly;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class SkullRendererSquid implements ISkullRenderer
+public class SkullRendererSquid extends SkullRendererBase
 {
-	private ModelSkullSquid model;
-	
-	public SkullRendererSquid()
+	public SkullRendererSquid(int tex)
 	{
-		this.model = new ModelSkullSquid();
+		super(new ModelSkullSquid());
+		this.spriteIndex = tex;
 	}
 	
-	@Override
+	/*@Override
 	public int getSpriteIndex(int meta)
 	{
 		return 5;
+	}*/
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	protected void callBackScale(int direction, float rotation, EnumSkullRenderType type)
+	{
+		GL11.glScalef(0.734375F, 0.734375F, 0.734375F);// 0.75
 	}
 	
 	@SideOnly(Side.CLIENT)
+	protected void doTranslate(int direction, float rotation, EnumSkullRenderType type)
+	{
+		if (direction != 1)
+		{
+			switch (direction)
+			{
+				case -1:
+            		GL11.glTranslatef(0.0F, -0.234375F, 0.0F);
+	            	break;
+                case 2:
+                    GL11.glTranslatef(0.0F, 0.140625F, 0.224375F);
+                    break;
+                case 3:
+                    GL11.glTranslatef(0.0F, 0.140625F, -0.224375F);
+                    break;
+                case 4:
+                    GL11.glTranslatef(0.224375F, 0.140625F, 0.0F);
+                    break;
+                case 5:
+                default:
+                    GL11.glTranslatef(-0.224375F, 0.140625F, 0.0F);
+			}
+		}
+	}
+	
+	/*@SideOnly(Side.CLIENT)
 	@Override
 	public void renderSkull(int direction, float par5, EnumSkullRenderType type)
 	{
@@ -72,36 +104,6 @@ public class SkullRendererSquid implements ISkullRenderer
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 	}
 	
-	/*@Override
-	public void setBlockBounds(IBlockAccess blockaccess, int blockX, int blockY, int blockZ, Block block)
-	{
-		int direction = blockaccess.getBlockMetadata(blockX, blockY, blockZ) & 7;
-
-		switch (direction)
-		{
-			case 1:
-			default:
-				block.setBlockBounds(0.225F, 0.0F, 0.225F, 0.775F, 0.75F, 0.775F);
-				break;
-
-			case 2:
-				block.setBlockBounds(0.225F, 0.13F, 0.465F, 0.775F, 0.87F, 1.0F);
-				break;
-
-			case 3:
-				block.setBlockBounds(0.225F, 0.13F, 0.0F, 0.775F, 0.87F, 0.535F);
-				break;
-
-			case 4:
-				block.setBlockBounds(0.465F, 0.13F, 0.225F, 1.0F, 0.87F, 0.775F);
-				break;
-
-			case 5:
-				block.setBlockBounds(0.0F, 0.13F, 0.225F, 0.535F, 0.87F, 0.775F);
-		}
-	}*/
-
-	
 	@SideOnly(Side.CLIENT)
 	protected void bindTextureByName(String par1Str)
 	{
@@ -111,5 +113,5 @@ public class SkullRendererSquid implements ISkullRenderer
 		{
 			var2.bindTexture(var2.getTexture(par1Str));
 		}
-	}
+	}*/
 }

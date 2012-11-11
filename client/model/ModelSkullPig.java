@@ -21,7 +21,6 @@ public class ModelSkullPig extends ModelSkullBase
         this.textureHeight = 32;
 		this.skull = new ModelRenderer(this, 0, 0);
 		this.skull.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, par1);
-		//this.skull.setRotationPoint(0.0F, (float)(18 - var2), 0.0F);
         this.skull.setTextureOffset(16, 16).addBox(-2.0F, -4.0F, -5.0F, 4, 3, 1, par1);
 	}
 	

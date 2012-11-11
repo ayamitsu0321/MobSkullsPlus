@@ -75,7 +75,6 @@ public abstract class SkullRendererBase implements ISkullRenderer
 	@Override
 	public void renderSkull(int direction, float rotation, EnumSkullRenderType type)
 	{
-		//GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_CULL_FACE);
 		float rot = this.getRotation(direction, rotation, type);
 		
@@ -102,46 +101,7 @@ public abstract class SkullRendererBase implements ISkullRenderer
 		{
 			e.printStackTrace();
 		}
-		
-		
-		//GL11.glEnable(GL11.GL_CULL_FACE);
-		//GL11.glPopMatrix();
 	}
-	
-	/*@Override
-	public void setBlockBounds(IBlockAccess iblockaccess, int blockX, int blockY, int blockZ, Block block)
-	{
-		int direction = iblockaccess.getBlockMetadata(blockX, blockY, blockZ) & 7;
-
-        switch (direction)
-        {
-            case 1:
-            default:
-                block.setBlockBounds(this.getMinSize(this.xSize), MIN, this.getMinSize(this.xSize), this.getMaxSize(this.xSize), MIN + this.ySize, this.getMaxSize(this.zSize));
-                break;
-            case 2:
-                block.setBlockBounds(this.getMinSize(this.xSize), this.getMinSize(this.ySize), MAX - this.zSize, this.getMaxSize(this.xSize), this.getMaxSize(this.ySize), MAX);
-                break;
-            case 3:
-                block.setBlockBounds(this.getMinSize(this.xSize), this.getMinSize(this.ySize), MIN, this.getMaxSize(this.xSize), this.getMaxSize(this.ySize), MIN + this.zSize);
-                break;
-            case 4:
-                block.setBlockBounds(MAX - this.xSize, this.getMinSize(this.ySize), this.getMinSize(this.zSize), MAX, this.getMaxSize(this.ySize), this.getMaxSize(this.zSize));
-                break;
-            case 5:
-                block.setBlockBounds(MIN, this.getMinSize(this.ySize), this.getMinSize(this.zSize), MIN + this.xSize, this.getMaxSize(this.ySize), this.getMaxSize(this.zSize));
-        }
-	}
-	
-	private float getMinSize(float size)
-	{
-		return (MAX - size) / 2.0F;
-	}
-	
-	private float getMaxSize(float size)
-	{
-		return MAX - ((MAX - size) / 2.0F);
-	}*/
 	
 	@SideOnly(Side.CLIENT)
 	protected void bindTexture(String path)

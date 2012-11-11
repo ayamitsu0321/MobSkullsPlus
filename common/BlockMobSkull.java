@@ -45,7 +45,7 @@ public class BlockMobSkull extends BlockContainer
 	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
 	{
 		TileEntityMobSkull mobSkull = (TileEntityMobSkull)par1IBlockAccess.getBlockTileEntity(par2, par3, par4);
-		int type = mobSkull.getEntityId();
+		int type = mobSkull.getSkullType();
 		IBlockBounds blockBounds = BlockBoundsRegistry.getBlockBounds(type);
 		
 		if (blockBounds != null)
@@ -86,7 +86,7 @@ public class BlockMobSkull extends BlockContainer
     public int getDamageValue(World par1World, int par2, int par3, int par4)
     {
         TileEntity var5 = par1World.getBlockTileEntity(par2, par3, par4);
-        return var5 instanceof TileEntityMobSkull ? ((TileEntityMobSkull)var5).getEntityId() : super.getDamageValue(par1World, par2, par3, par4);
+        return var5 instanceof TileEntityMobSkull ? ((TileEntityMobSkull)var5).getSkullType() : super.getDamageValue(par1World, par2, par3, par4);
     }
 
 	// ドロップ時のメタデータ

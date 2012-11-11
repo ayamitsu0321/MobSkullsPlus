@@ -32,7 +32,7 @@ public class ClientProxy extends CommonProxy
 		RendererRegistry.registerSkullRenderer(3, "PigZombie Head", ((SkullRendererDefault)new SkullRendererDefault(7, new ModelSkullBiped(0.0F, 0.0F, 64, 64))).setSize(0.5F, 0.5F, 0.5F).setTexture("/mob/pigzombie.png"));
 		RendererRegistry.registerSkullRenderer(4, "Blaze Head", ((SkullRendererDefault)new SkullRendererDefault(11, new ModelSkeletonHead(0, 0, 64, 32))).setSize(0.5F, 0.5F, 0.5F).setTexture("/mob/fire.png"));
 		RendererRegistry.registerSkullRenderer(5, "Wither Head", ((SkullRendererDefault)new SkullRendererDefault(22, new ModelSkeletonHead(0, 0, 64, 64))).setSize(0.5F, 0.5F, 0.5F).setTexture("/mob/wither.png"));
-		RendererRegistry.registerSkullRenderer(6, "Squid Head", new SkullRendererSquid());
+		RendererRegistry.registerSkullRenderer(6, "Squid Head", ((SkullRendererSquid)new SkullRendererSquid(5)).setTexture("/mob/squid.png"));
 		RendererRegistry.registerSkullRenderer(7, "Slime Head", ((SkullRendererMulti)new SkullRendererMulti(6, new ModelSkullSlime(16), new ModelSkullSlime(0)).setSize(0.5F, 0.5F, 0.5F)).setTexture("/mob/slime.png", "/mob/slime.png").setAlpha(false, true));
 		RendererRegistry.registerSkullRenderer(8, "MagmaCube Head", ((SkullRendererDefault)new SkullRendererDefault(12, new ModelSkullMagmaCube())).setSize(0.5F, 0.5F, 0.5F).setTexture("/mob/lava.png"));
 		RendererRegistry.registerSkullRenderer(9, "Wither Skeleton Head", ((SkullRendererDefault)new SkullRendererDefault(1, new ModelSkeletonHead(0, 0, 64, 32))).setSize(0.5F, 0.5F, 0.5F).setTexture("/mob/skeleton_wither.png"));

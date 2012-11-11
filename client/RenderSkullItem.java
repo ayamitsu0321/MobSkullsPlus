@@ -55,6 +55,7 @@ public class RenderSkullItem implements IItemRenderer
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack is, Object... data)
 	{
+		// 手にもってるとき
 		if (type == ItemRenderType.EQUIPPED)
 		{
 			ISkullRenderer renderer = RendererRegistry.getSkullRenderer(is.getItemDamage());
@@ -63,9 +64,16 @@ public class RenderSkullItem implements IItemRenderer
 		else
 		{
 			GL11.glPushMatrix();
+			
+			if (type == ItemRenderType.ENTITY)
+			{
+				GL11.glScalef(2.0F, 2.0F, 2.0F);
+			}
+			
 			this.loadTexture(is.getItem().getTextureFile());// テクスチャのbind
 			Item item = is.getItem();
 			int icon = item.getIconFromDamage(is.getItemDamage());// テクスチャ上の番号
+			this.random.setSeed(187L);// important 超重要!描画を安定させる
 			
 			// 複数テクスチャ
 			if (item.requiresMultipleRenderPasses())
@@ -100,19 +108,30 @@ public class RenderSkullItem implements IItemRenderer
 		float b = (float)(color & 255) / 255.0F;
 		GL11.glColor4f(r, g, b, 1.0F);// 乗算
 		
-		//if (type == ItemRenderType.ENTITY) {}
-		
-		/*if (type == ItemRenderType.EQUIPPED)// 手に持ってるとき
+		if (type == ItemRenderType.INVENTORY)// GUIのとこ
 		{
-			this.renderEquipped(is, icon);
-		}
-		else */if (type == ItemRenderType.INVENTORY)// GUIのとこ
-		{
-            this.renderTexturedQuad(0, 0, icon % 16 * 16, icon / 16 * 16, 16, 16);
+			this.renderTexturedQuad(0, 0, icon % 16 * 16, icon / 16 * 16, 16, 16);
 		}
 		else if (type != ItemRenderType.EQUIPPED)
 		{
-			this.renderEntityItem(icon, is.stackSize);// EntityItem
+			byte stack = 1;
+			
+			if (is.stackSize > 1)
+			{
+				stack = 2;
+			}
+			
+			if (is.stackSize > 5)
+			{
+				stack = 3;
+			}
+			
+			if (is.stackSize > 20)
+			{
+				stack = 4;
+			}
+			
+			this.renderEntityItem(icon, stack);// EntityItemの描画
 		}
 	}
 	
@@ -300,6 +319,4 @@ public class RenderSkullItem implements IItemRenderer
         var9.addVertexWithUV((double)(par1 + 0), (double)(par2 + 0), 0D, (double)((float)(par3 + 0) * var7), (double)((float)(par4 + 0) * var8));
         var9.draw();
     }
-	
-	
 }

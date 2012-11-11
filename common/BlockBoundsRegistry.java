@@ -42,29 +42,5 @@ public final class BlockBoundsRegistry
 		
 		hasInit = true;
 		blockBoundsMap = new HashMap<Integer, IBlockBounds>();
-		registerBlockBounds(0, "Creeper Head", new BlockBoundsCube());
-		registerBlockBounds(1, "Skeleton Head", new BlockBoundsCube());
-		registerBlockBounds(2, "Zombie Head", new BlockBoundsCube());
-		registerBlockBounds(3, "PigZombie Head", new BlockBoundsCube());
-		registerBlockBounds(4, "Blaze Head", new BlockBoundsCube());
-		registerBlockBounds(5, "Wither Head", new BlockBoundsCube());
-		registerBlockBounds(6, "Squid Head", new BlockBoundsCube(0.535F, 0.74F, 0.535F));
-		registerBlockBounds(7, "Slime Head", new BlockBoundsCube());
-		registerBlockBounds(8, "MagmaCube Head", new BlockBoundsCube());
-		registerBlockBounds(9, "Wither Skeleton Head", new BlockBoundsCube());
-		registerBlockBounds(10, "Head", new BlockBoundsCube());
-		registerBlockBounds(11, "Spider Head", new BlockBoundsCube());
-		registerBlockBounds(12, "CaveSpider Head", new BlockBoundsCube());
-		registerBlockBounds(13, "Enderman Head", new BlockBoundsCube());
-		registerBlockBounds(14, "Ghast Head", new BlockBoundsCube(1.0F, 1.0F, 1.0F));
-		registerBlockBounds(15, "Snowman Head", new BlockBoundsCube());
-		registerBlockBounds(16, "Sheep Head", new BlockBoundsCube());
-		registerBlockBounds(17, "Cow Head", new BlockBoundsCube());
-		registerBlockBounds(18, "Red Cow Head", new BlockBoundsCube());
-		registerBlockBounds(19, "Pig Head", new BlockBoundsCube());
-		registerBlockBounds(20, "Villager Head", new BlockBoundsCube());
-		registerBlockBounds(21, "Wolf Head", new BlockBoundsCube(0.5F, 0.625F, 0.5F));
-		registerBlockBounds(22, "Chicken Head", new BlockBoundsCube());
-		registerBlockBounds(23, "Golem Head", new BlockBoundsCube(0.5F, 0.625F, 0.5F));
 	}
 }

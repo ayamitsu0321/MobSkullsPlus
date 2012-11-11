@@ -10,6 +10,7 @@ import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
 import java.util.List;
 import java.util.Iterator;
+import cpw.mods.fml.common.network.PacketDispatcher;
 //import org.lwjgl.input.Mouse;
 
 public class ItemMobSkull extends ItemBlock
@@ -78,7 +79,7 @@ public class ItemMobSkull extends ItemBlock
 				
 				if (tileentity instanceof TileEntityMobSkull)
 				{
-	                ((TileEntityMobSkull)tileentity).setEntityId(is.getItemDamage());
+	                ((TileEntityMobSkull)tileentity).setSkullType(is.getItemDamage());
 	                ((TileEntityMobSkull)tileentity).setSkullRotation(rot);
 				}
 				
@@ -163,7 +164,7 @@ public class ItemMobSkull extends ItemBlock
 		// マウスの入力があれだから、どうにかPacketでやらないと
 		// どうしましょ
 		
-		if (world.isRemote || is == null)
+		if (!world.isRemote || is == null)
 		{
 			return;
 		}
@@ -173,23 +174,11 @@ public class ItemMobSkull extends ItemBlock
 			EntityPlayer player = (EntityPlayer)entity;
 			
 			// 右クリック, というより腕を振る
-			if (player.swingProgressInt == -1 /*&& org.lwjgl.input.Mouse.isButtonDown(0) */&& isHeld)
+			if (player.swingProgressInt == -1 && org.lwjgl.input.Mouse.isButtonDown(0) && isHeld)
 			{
-				ItemStack helmet = player.getCurrentArmor(3);
-				
-				if (helmet == null)
-				{
-					ItemStack is1 = ItemStack.copyItemStack(is);
-					is1.stackSize = 1;
-					player.setCurrentItemOrArmor(3, is1);
-					//player.inventory.consumeInventoryItem(par4);
-					
-					if (--is.stackSize <= 0)
-					{
-						player.inventory.mainInventory[player.inventory.currentItem] = null;
-						MinecraftForge.EVENT_BUS.post(new PlayerDestroyItemEvent(player, is));
-					}
-				}
+				byte[] data = new byte[1];
+				data[0] = 1;
+				PacketDispatcher.sendPacketToServer(new Packet250CustomPayload("mobskullsplus", data));
 			}
 		}
 	}
