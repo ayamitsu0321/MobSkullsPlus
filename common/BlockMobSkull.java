@@ -1,7 +1,6 @@
 package ayamitsu.mobskullsplus.common;
 
 import ayamitsu.mobskullsplus.*;
-import ayamitsu.mobskullsplus.common.registry.BlockBoundsRegistry;
 
 import net.minecraft.src.*;
 import cpw.mods.fml.common.Side;
@@ -134,7 +133,7 @@ public class BlockMobSkull extends BlockContainer
 	@Override
 	public void getSubBlocks(int id, CreativeTabs tab, List list)
 	{
-		for (Iterator iterator = ayamitsu.mobskullsplus.client.registry.RendererRegistry.getMap().keySet().iterator(); iterator.hasNext();)
+		for (Iterator iterator = ayamitsu.mobskullsplus.client.RendererRegistry.getMap().keySet().iterator(); iterator.hasNext();)
 		{
 			Integer entityId = (Integer)iterator.next();
 			list.add(new ItemStack(id, 1, entityId.intValue()));

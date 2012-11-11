@@ -1,7 +1,6 @@
 package ayamitsu.mobskullsplus;
 
 import ayamitsu.mobskullsplus.common.*;
-import ayamitsu.mobskullsplus.common.registry.BlockBoundsRegistry;
 
 import net.minecraft.src.*;
 
@@ -102,12 +101,12 @@ public class MobSkullsPlus
 		BlockBoundsRegistry.registerBlockBounds(22, "Chicken Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(23, "Golem Head", new BlockBoundsCube(0.5F, 0.625F, 0.5F));
 		
-		GameRegistry.addRecipe(new ItemStack(this.skull.blockID, 1, 20),
+		/*GameRegistry.addRecipe(new ItemStack(this.skull.blockID, 1, 20),
 			new Object[] {
 				"##",
 				'#', Block.dirt
 			}
-		);
+		);*/
 		//MobSkullsList.init();
 	}
 }

@@ -1,7 +1,6 @@
-package ayamitsu.mobskullsplus.common.registry;
+package ayamitsu.mobskullsplus.common;
 
 import ayamitsu.mobskullsplus.*;
-import ayamitsu.mobskullsplus.common.*;
 
 import net.minecraft.src.*;
 

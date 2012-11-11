@@ -1,8 +1,6 @@
 package ayamitsu.mobskullsplus.common;
 
 import ayamitsu.mobskullsplus.*;
-import ayamitsu.mobskullsplus.common.*;
-import ayamitsu.mobskullsplus.common.registry.*;
 
 import net.minecraft.src.*;
 
@@ -99,7 +97,7 @@ public class ItemMobSkull extends ItemBlock
 	public boolean canPlaceItemBlockOnSide(World world, int blockX, int blockY, int blockZ, int face, EntityPlayer player, ItemStack is)
 	{
 		// 下面
-		if (face == 0 || !world.getBlockMaterial(blockX, blockY, blockZ).isSolid() || !ayamitsu.mobskullsplus.client.registry.RendererRegistry.contains(is.getItemDamage()))
+		if (face == 0 || !world.getBlockMaterial(blockX, blockY, blockZ).isSolid() || !ayamitsu.mobskullsplus.client.RendererRegistry.contains(is.getItemDamage()))
 		{
 			return false;
 		}
@@ -174,7 +172,7 @@ public class ItemMobSkull extends ItemBlock
 		{
 			EntityPlayer player = (EntityPlayer)entity;
 			
-			// 右クリック
+			// 右クリック, というより腕を振る
 			if (player.swingProgressInt == -1 /*&& org.lwjgl.input.Mouse.isButtonDown(0) */&& isHeld)
 			{
 				ItemStack helmet = player.getCurrentArmor(3);
@@ -221,7 +219,7 @@ public class ItemMobSkull extends ItemBlock
     @SideOnly(Side.CLIENT)
     public int getIconFromDamage(int meta)
     {
-    	ayamitsu.mobskullsplus.client.ISkullRenderer renderer = ayamitsu.mobskullsplus.client.registry.RendererRegistry.getSkullRenderer(meta);
+    	ayamitsu.mobskullsplus.client.ISkullRenderer renderer = ayamitsu.mobskullsplus.client.RendererRegistry.getSkullRenderer(meta);
     	return renderer == null ? 0 : renderer.getSpriteIndex(meta);
     }
 	

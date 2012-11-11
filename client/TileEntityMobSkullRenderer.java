@@ -1,7 +1,6 @@
 package ayamitsu.mobskullsplus.client;
 
 import ayamitsu.mobskullsplus.*;
-import ayamitsu.mobskullsplus.client.registry.RendererRegistry;
 import ayamitsu.mobskullsplus.common.TileEntityMobSkull;
 
 import net.minecraft.src.*;

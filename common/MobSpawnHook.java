@@ -1,7 +1,6 @@
 package ayamitsu.mobskullsplus.common;
 
 import ayamitsu.mobskullsplus.*;
-import ayamitsu.mobskullsplus.common.registry.BlockBoundsRegistry;
 
 import net.minecraft.src.*;
 

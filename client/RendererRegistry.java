@@ -1,7 +1,6 @@
-package ayamitsu.mobskullsplus.client.registry;
+package ayamitsu.mobskullsplus.client;
 
 import ayamitsu.mobskullsplus.*;
-import ayamitsu.mobskullsplus.client.*;
 import ayamitsu.mobskullsplus.client.model.*;
 import ayamitsu.mobskullsplus.client.renderer.*;
 
