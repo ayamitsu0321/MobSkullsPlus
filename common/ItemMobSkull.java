@@ -57,7 +57,7 @@ public class ItemMobSkull extends ItemBlock
 				++blockX;
 			}
 
-			if (!player.func_82247_a(blockX, blockY, blockZ, face, is))
+			if (!player.canPlayerEdit(blockX, blockY, blockZ, face, is))
 			{
 				return false;
 			}
@@ -129,7 +129,7 @@ public class ItemMobSkull extends ItemBlock
 				++blockX;
 			}
 
-			if (!player.func_82247_a(blockX, blockY, blockZ, face, is))
+			if (!player.canPlayerEdit(blockX, blockY, blockZ, face, is))
 			{
 				return false;
 			}
