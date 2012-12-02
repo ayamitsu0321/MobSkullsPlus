@@ -50,6 +50,12 @@ public class ClientProxy extends CommonProxy
 		RendererRegistry.registerSkullRenderer(21, "Wolf Head", ((SkullRendererDefault)new SkullRendererWolf(15, new ModelSkullWolf()).setSize(0.5F, 0.5F, 0.5F)).setScale(1.125F).setTexture("/mob/wolf.png"));
 		RendererRegistry.registerSkullRenderer(22, "Chicken Head", ((SkullRendererDefault)new SkullRendererChicken(16, new ModelSkullChicken())).setSize(0.5F, 0.5F, 0.5F).setTexture("/mob/chicken.png"));
 		RendererRegistry.registerSkullRenderer(23, "Golem Head", ((SkullRendererVillager)new SkullRendererVillager(23, new ModelSkullIronGolem())).setSize(0.5F, 0.625F, 0.5F).setTextureFile("/mob/villager_golem.png"));
+		RendererRegistry.registerSkullRenderer(24, "Witch Head", ((SkullRendererVillager)new SkullRendererVillager(24, new ModelSkullWitch(0.0F))).setSize(0.5F, 0.625F, 0.5F).setTextureFile("/mob/villager/witch.png"));
+		RendererRegistry.registerSkullRenderer(25, "Villager Head", ((SkullRendererVillager)new SkullRendererVillager(25, new ModelSkullZombieVillager())).setSize(0.5F, 0.625F, 0.5F).setTextureFile("/mob/zombie_villager.png"));
+		RendererRegistry.registerSkullRenderer(26, "Siamese Ocelot Head", ((SkullRendererDefault)new SkullRendererOcelot(26, new ModelSkullOcelot()).setSize(0.5F, 0.5F, 0.5F)).setScale(1.125F).setTexture("/mob/cat_siamese.png"));
+		RendererRegistry.registerSkullRenderer(27, "Red Ocelot Head", ((SkullRendererDefault)new SkullRendererOcelot(27, new ModelSkullOcelot()).setSize(0.5F, 0.5F, 0.5F)).setScale(1.125F).setTexture("/mob/cat_red.png"));
+		RendererRegistry.registerSkullRenderer(28, "Black Ocelot Head", ((SkullRendererDefault)new SkullRendererOcelot(28, new ModelSkullOcelot()).setSize(0.5F, 0.5F, 0.5F)).setScale(1.125F).setTexture("/mob/cat_black.png"));
+		RendererRegistry.registerSkullRenderer(29, "Ghast Fire Head", ((SkullRendererCube)new SkullRendererCube(29, new ModelSkullGhast())).setTexture("/mob/ghast_fire.png"));
 	}
 	
 	@Override

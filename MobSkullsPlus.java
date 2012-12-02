@@ -21,7 +21,7 @@ import java.util.BitSet;
 @Mod(
 	modid = "MobSkullsPlus",
 	name = "MobSkullsPlus",
-	version = "1.0.0"
+	version = "1.0.1"
 )
 @NetworkMod(
 	clientSideRequired = true,
@@ -101,6 +101,12 @@ public class MobSkullsPlus
 		BlockBoundsRegistry.registerBlockBounds(21, "Wolf Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(22, "Chicken Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(23, "Golem Head", new BlockBoundsCube(0.5F, 0.625F, 0.5F));
+		BlockBoundsRegistry.registerBlockBounds(24, "Witch Head", new BlockBoundsCube(0.5F, 0.625F, 0.5F));
+		BlockBoundsRegistry.registerBlockBounds(25, "Zombie Villager Head", new BlockBoundsCube(0.5F, 0.625F, 0.5F));
+		BlockBoundsRegistry.registerBlockBounds(26, "Siamese Ocelot Head", new BlockBoundsCube());
+		BlockBoundsRegistry.registerBlockBounds(27, "Red Ocelot Head", new BlockBoundsCube());
+		BlockBoundsRegistry.registerBlockBounds(28, "Black Ocelot Head", new BlockBoundsCube());
+		BlockBoundsRegistry.registerBlockBounds(29, "Ghast Fire Head", new BlockBoundsCube(1.0F, 1.0F, 1.0F));
 		
 		/*GameRegistry.addRecipe(new ItemStack(this.skull.blockID, 1, 20),
 			new Object[] {

@@ -8,7 +8,7 @@ public class CommonProxy
 	public void load()
 	{
 		GameRegistry.registerTileEntity(TileEntityMobSkull.class, "MobSkull");
-		
+		/*
 		BlockBoundsRegistry.registerBlockBounds(0, "Creeper Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(1, "Skeleton Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(2, "Zombie Head", new BlockBoundsCube());
@@ -33,6 +33,8 @@ public class CommonProxy
 		BlockBoundsRegistry.registerBlockBounds(21, "Wolf Head", new BlockBoundsCube(0.5F, 0.625F, 0.5F));
 		BlockBoundsRegistry.registerBlockBounds(22, "Chicken Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(23, "Golem Head", new BlockBoundsCube(0.5F, 0.625F, 0.5F));
+		BlockBoundsRegistry.registerBlockBounds(24, "Witch Head", new BlockBoundsCube());
+		*/
 	}
 	
 	public int getUniqueRenderId()

@@ -28,7 +28,7 @@ public class RenderSkullBlock implements ISimpleBlockRenderingHandler
 			renderer.renderSkull(-1, 90F, EnumSkullRenderType.EQUIPPED);
 			GL11.glScalef(1.0F, 1.0F, -1.0F);
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-			GL11.glEnable(GL11.GL_CULL_FACE);
+			//GL11.glEnable(GL11.GL_CULL_FACE);
 		}
 	}
 
