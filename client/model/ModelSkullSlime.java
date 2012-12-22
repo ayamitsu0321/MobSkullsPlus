@@ -1,17 +1,17 @@
 package ayamitsu.mobskullsplus.client.model;
 
-import net.minecraft.src.*;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
 
-@SideOnly(Side.CLIENT)
+@cpw.mods.fml.relauncher.SideOnly(cpw.mods.fml.relauncher.Side.CLIENT)
 public class ModelSkullSlime extends ModelBase
 {
 	ModelRenderer slimeBodies;
     ModelRenderer slimeRightEye;
     ModelRenderer slimeLeftEye;
     ModelRenderer slimeMouth;
-	
+
 	public ModelSkullSlime(int par1)
     {
         this.slimeBodies = new ModelRenderer(this, 0, par1);
@@ -29,7 +29,7 @@ public class ModelSkullSlime extends ModelBase
             this.slimeMouth.addBox(0.0F, -3.0F, -3.5F, 1, 1, 1);
         }
     }
-	
+
 	@Override
 	public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7)
     {
@@ -43,12 +43,12 @@ public class ModelSkullSlime extends ModelBase
             this.slimeMouth.render(par7);
         }
     }
-	
+
 	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity)
 	{
 		this.slimeBodies.rotateAngleY = par4 / (180F / (float)Math.PI);
 		this.slimeBodies.rotateAngleX = par5 / (180F / (float)Math.PI);
-		
+
 		if (this.slimeRightEye != null)
 		{
 			this.slimeRightEye.rotateAngleY = this.slimeBodies.rotateAngleY;

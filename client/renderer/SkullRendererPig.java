@@ -1,13 +1,12 @@
 package ayamitsu.mobskullsplus.client.renderer;
 
-import ayamitsu.mobskullsplus.*;
-import ayamitsu.mobskullsplus.client.*;
+import net.minecraft.client.model.ModelBase;
 
-import net.minecraft.src.*;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+
+import ayamitsu.mobskullsplus.client.EnumSkullRenderType;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class SkullRendererPig extends SkullRendererMulti
 {
@@ -15,7 +14,7 @@ public class SkullRendererPig extends SkullRendererMulti
 	{
 		super(tex, modelbase, modelbase1);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	protected void callBackScale(int direction, float rotation, EnumSkullRenderType type)
 	{
@@ -27,7 +26,7 @@ public class SkullRendererPig extends SkullRendererMulti
 	protected void doTranslate(int direction, float rotation, EnumSkullRenderType type)
 	{
 		super.doTranslate(direction, rotation, type);
-		
+
 		if (direction != 1)
 		{
 			GL11.glTranslatef(0.0F, 0.046875F, 0.0F);

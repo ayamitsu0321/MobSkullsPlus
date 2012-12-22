@@ -1,20 +1,42 @@
 package ayamitsu.mobskullsplus.client;
 
-import ayamitsu.mobskullsplus.*;
-import ayamitsu.mobskullsplus.client.model.*;
-import ayamitsu.mobskullsplus.client.renderer.*;
-import ayamitsu.mobskullsplus.common.*;
-
-import net.minecraft.src.World;
-import net.minecraft.src.ModelSkeletonHead;
-
+import net.minecraft.client.model.ModelSkeletonHead;
+import net.minecraft.world.World;
+import net.minecraftforge.client.MinecraftForgeClient;
+import ayamitsu.mobskullsplus.MobSkullsPlus;
+import ayamitsu.mobskullsplus.client.model.ModelSkullBiped;
+import ayamitsu.mobskullsplus.client.model.ModelSkullChicken;
+import ayamitsu.mobskullsplus.client.model.ModelSkullCow;
+import ayamitsu.mobskullsplus.client.model.ModelSkullEnderman;
+import ayamitsu.mobskullsplus.client.model.ModelSkullGhast;
+import ayamitsu.mobskullsplus.client.model.ModelSkullIronGolem;
+import ayamitsu.mobskullsplus.client.model.ModelSkullMagmaCube;
+import ayamitsu.mobskullsplus.client.model.ModelSkullOcelot;
+import ayamitsu.mobskullsplus.client.model.ModelSkullPig;
+import ayamitsu.mobskullsplus.client.model.ModelSkullSheep1;
+import ayamitsu.mobskullsplus.client.model.ModelSkullSheep2;
+import ayamitsu.mobskullsplus.client.model.ModelSkullSlime;
+import ayamitsu.mobskullsplus.client.model.ModelSkullSpider;
+import ayamitsu.mobskullsplus.client.model.ModelSkullVillager;
+import ayamitsu.mobskullsplus.client.model.ModelSkullWitch;
+import ayamitsu.mobskullsplus.client.model.ModelSkullWolf;
+import ayamitsu.mobskullsplus.client.model.ModelSkullZombieVillager;
+import ayamitsu.mobskullsplus.client.renderer.SkullRendererChicken;
+import ayamitsu.mobskullsplus.client.renderer.SkullRendererCow;
+import ayamitsu.mobskullsplus.client.renderer.SkullRendererCube;
+import ayamitsu.mobskullsplus.client.renderer.SkullRendererDefault;
+import ayamitsu.mobskullsplus.client.renderer.SkullRendererMulti;
+import ayamitsu.mobskullsplus.client.renderer.SkullRendererOcelot;
+import ayamitsu.mobskullsplus.client.renderer.SkullRendererPig;
+import ayamitsu.mobskullsplus.client.renderer.SkullRendererSheep;
+import ayamitsu.mobskullsplus.client.renderer.SkullRendererSquid;
+import ayamitsu.mobskullsplus.client.renderer.SkullRendererVillager;
+import ayamitsu.mobskullsplus.client.renderer.SkullRendererWolf;
+import ayamitsu.mobskullsplus.common.CommonProxy;
+import ayamitsu.mobskullsplus.common.TileEntityMobSkull;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
-import net.minecraftforge.client.MinecraftForgeClient;
 
 public class ClientProxy extends CommonProxy
 {
@@ -25,7 +47,7 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.registerTileEntity(TileEntityMobSkull.class, "MobSkull", new TileEntityMobSkullRenderer());
 		MinecraftForgeClient.registerItemRenderer(MobSkullsPlus.skull.blockID, new RenderSkullItem());
 		RenderingRegistry.registerBlockHandler(new RenderSkullBlock(MobSkullsPlus.renderId));
-		
+
 		RendererRegistry.registerSkullRenderer(0, "Creeper Head", ((SkullRendererDefault)new SkullRendererDefault(4, new ModelSkeletonHead(0, 0, 64, 32))).setSize(0.5F, 0.5F, 0.5F).setTexture("/mob/creeper.png"));
 		RendererRegistry.registerSkullRenderer(1, "Skeleton Head", ((SkullRendererDefault)new SkullRendererDefault(0, new ModelSkeletonHead(0, 0, 64, 32))).setSize(0.5F, 0.5F, 0.5F).setTexture("/mob/skeleton.png"));
 		RendererRegistry.registerSkullRenderer(2, "Zombie Head", ((SkullRendererDefault)new SkullRendererDefault(2, new ModelSkeletonHead(0, 0, 64, 64))).setSize(0.5F, 0.5F, 0.5F).setTexture("/mob/zombie.png"));
@@ -57,13 +79,13 @@ public class ClientProxy extends CommonProxy
 		RendererRegistry.registerSkullRenderer(28, "Black Ocelot Head", ((SkullRendererDefault)new SkullRendererOcelot(28, new ModelSkullOcelot()).setSize(0.5F, 0.5F, 0.5F)).setScale(1.125F).setTexture("/mob/cat_black.png"));
 		RendererRegistry.registerSkullRenderer(29, "Ghast Fire Head", ((SkullRendererCube)new SkullRendererCube(29, new ModelSkullGhast())).setTexture("/mob/ghast_fire.png"));
 	}
-	
+
 	@Override
 	public int getUniqueRenderId()
 	{
 		return RenderingRegistry.getNextAvailableRenderId();
 	}
-	
+
 	@Override
 	public World getClientWorld()
 	{

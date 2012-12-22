@@ -1,18 +1,15 @@
 package ayamitsu.mobskullsplus.client.model;
 
-import net.minecraft.src.ModelRenderer;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.model.ModelRenderer;
 
-@SideOnly(Side.CLIENT)
+@cpw.mods.fml.relauncher.SideOnly(cpw.mods.fml.relauncher.Side.CLIENT)
 public class ModelSkullIronGolem extends ModelSkullBase
 {
 	public ModelSkullIronGolem()
 	{
 		this(0.0F);
 	}
-	
+
 	public ModelSkullIronGolem(float par1)
 	{
 		this.textureWidth = 128;

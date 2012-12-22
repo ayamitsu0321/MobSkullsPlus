@@ -1,7 +1,7 @@
 package ayamitsu.mobskullsplus.common;
 
-import ayamitsu.mobskullsplus.common.IBlockBounds;
-import net.minecraft.src.*;
+import net.minecraft.block.Block;
+import net.minecraft.world.IBlockAccess;
 
 public class BlockBoundsCube implements IBlockBounds
 {
@@ -10,16 +10,16 @@ public class BlockBoundsCube implements IBlockBounds
 	public float xSize = 0.5F;
 	public float ySize = 0.5F;
 	public float zSize = 0.5F;
-	
+
 	public BlockBoundsCube() {}
-	
+
 	public BlockBoundsCube(float f, float f1, float f2)
 	{
 		this.xSize = f;
 		this.ySize = f1;
 		this.zSize = f2;
 	}
-	
+
 	public BlockBoundsCube setSize(float f, float f1, float f2)
 	{
 		this.xSize = f;
@@ -27,7 +27,7 @@ public class BlockBoundsCube implements IBlockBounds
 		this.zSize = f2;
 		return this;
 	}
-	
+
 	@Override
 	public void setBlockBounds(IBlockAccess iblockaccess, int blockX, int blockY, int blockZ, Block block)
 	{
@@ -52,12 +52,12 @@ public class BlockBoundsCube implements IBlockBounds
                 block.setBlockBounds(MIN, this.getMinSize(this.ySize), this.getMinSize(this.zSize), MIN + this.xSize, this.getMaxSize(this.ySize), this.getMaxSize(this.zSize));
         }
 	}
-	
+
 	private float getMinSize(float size)
 	{
 		return (MAX - size) / 2.0F;
 	}
-	
+
 	private float getMaxSize(float size)
 	{
 		return MAX - ((MAX - size) / 2.0F);

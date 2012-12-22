@@ -1,9 +1,8 @@
 package ayamitsu.mobskullsplus.client.model;
 
-import net.minecraft.src.ModelRenderer;
-import net.minecraft.src.Entity;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
+import net.minecraft.client.model.ModelRenderer;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelSkullWolf extends ModelSkullBase

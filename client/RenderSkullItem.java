@@ -1,16 +1,18 @@
 package ayamitsu.mobskullsplus.client;
 
-import ayamitsu.mobskullsplus.*;
+import java.util.Random;
 
-import net.minecraft.src.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderEngine;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.src.ModLoader;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.IItemRenderer.ItemRenderType;
-import net.minecraftforge.client.IItemRenderer.ItemRendererHelper;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-
-import java.util.Random;
 
 public class RenderSkullItem implements IItemRenderer
 {
@@ -28,34 +30,34 @@ public class RenderSkullItem implements IItemRenderer
 	 *  BLOCK_3D,
 	 *  INVENTORY_BLOCK
 	 */
-	
+
 	public Random random = new Random();
 	public RenderManager renderManager = RenderManager.instance;
 	public RenderEngine renderEngine = ModLoader.getMinecraftInstance().renderEngine;
 	public Minecraft mc = ModLoader.getMinecraftInstance();
-	
+
 	@Override
 	public boolean handleRenderType(ItemStack is, ItemRenderType type)
 	{
-		return type != ItemRenderType.EQUIPPED && is != null && RendererRegistry.contains(is.getItemDamage());
+		return type != ItemRenderType.ENTITY && type != ItemRenderType.EQUIPPED && is != null && RendererRegistry.contains(is.getItemDamage());
 	}
-	
+
 	@Override
 	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
 	{
-		// ���ɔ�����Ƃ��̕`��
+		// ・ｽ・ｽ・ｽﾉ費ｿｽ・ｽ・ｽ・ｽ・ｽﾆゑｿｽ・ｽﾌ描・ｽ・ｽ
 		if (type == ItemRenderType.EQUIPPED && helper == ItemRendererHelper.BLOCK_3D)
 		{
 			return true;
 		}
-		
+
 		return  !(type == ItemRenderType.EQUIPPED || type == ItemRenderType.FIRST_PERSON_MAP || helper == ItemRendererHelper.ENTITY_ROTATION || type == ItemRenderType.INVENTORY);
 	}
-	
+
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack is, Object... data)
 	{
-		// ��ɂ����Ă�Ƃ�
+		// ・ｽ・ｽﾉゑｿｽ・ｽ・ｽ・ｽﾄゑｿｽﾆゑｿｽ
 		if (type == ItemRenderType.EQUIPPED)
 		{
 			ISkullRenderer renderer = RendererRegistry.getSkullRenderer(is.getItemDamage());
@@ -64,22 +66,22 @@ public class RenderSkullItem implements IItemRenderer
 		else
 		{
 			GL11.glPushMatrix();
-			
+
 			if (type == ItemRenderType.ENTITY)
 			{
 				GL11.glScalef(2.0F, 2.0F, 2.0F);
 			}
-			
-			this.loadTexture(is.getItem().getTextureFile());// �e�N�X�`����bind
+
+			this.loadTexture(is.getItem().getTextureFile());// ・ｽe・ｽN・ｽX・ｽ`・ｽ・ｽ・ｽ・ｽbind
 			Item item = is.getItem();
-			int icon = item.getIconFromDamage(is.getItemDamage());// �e�N�X�`����̔ԍ�
-			this.random.setSeed(187L);// important ���d�v!�`������肳����
-			
-			// �����e�N�X�`��
+			int icon = item.getIconFromDamage(is.getItemDamage());// ・ｽe・ｽN・ｽX・ｽ`・ｽ・ｽ・ｽ・ｽﾌ番搾ｿｽ
+			this.random.setSeed(187L);// important ・ｽ・ｽ・ｽd・ｽv!・ｽ`・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ閧ｳ・ｽ・ｽ・ｽ・ｽ
+
+			// ・ｽ・ｽ・ｽ・ｽ・ｽe・ｽN・ｽX・ｽ`・ｽ・ｽ
 			if (item.requiresMultipleRenderPasses())
 			{
 				this.doRenderItem(is, type, icon, 0);
-				
+
 				for (int layer = 1; layer < item.getRenderPasses(is.getItemDamage()); layer++)
 				{
 					this.doRenderItem(is, type, icon, layer);
@@ -89,53 +91,53 @@ public class RenderSkullItem implements IItemRenderer
 			{
 				this.doRenderItem(is, type, icon, 0);
 			}
-			
+
 			GL11.glPopMatrix();
 		}
 	}
-	
+
 	public void loadTexture(String texture)
 	{
 		this.renderEngine.bindTexture(renderEngine.getTexture(texture));
 	}
-	
+
 	public void doRenderItem(ItemStack is, ItemRenderType type, int icon, int layer)
 	{
 		Item item = is.getItem();
-		int color = item.getColorFromItemStack(is, layer);// ��Z����F
+		int color = item.getColorFromItemStack(is, layer);// ・ｽ・ｽZ・ｽ・ｽ・ｽ・ｽF
 		float r = (float)(color >> 16 & 255) / 255.0F;
 		float g = (float)(color >> 8 & 255) / 255.0F;
 		float b = (float)(color & 255) / 255.0F;
-		GL11.glColor4f(r, g, b, 1.0F);// ��Z
-		
-		if (type == ItemRenderType.INVENTORY)// GUI�̂Ƃ�
+		GL11.glColor4f(r, g, b, 1.0F);// ・ｽ・ｽZ
+
+		if (type == ItemRenderType.INVENTORY)// GUI・ｽﾌとゑｿｽ
 		{
 			this.renderTexturedQuad(0, 0, icon % 16 * 16, icon / 16 * 16, 16, 16);
 		}
 		else if (type != ItemRenderType.EQUIPPED)
 		{
 			byte stack = 1;
-			
+
 			if (is.stackSize > 1)
 			{
 				stack = 2;
 			}
-			
+
 			if (is.stackSize > 5)
 			{
 				stack = 3;
 			}
-			
+
 			if (is.stackSize > 20)
 			{
 				stack = 4;
 			}
-			
-			this.renderEntityItem(icon, stack);// EntityItem�̕`��
+
+			this.renderEntityItem(icon, stack);// EntityItem・ｽﾌ描・ｽ・ｽ
 		}
 	}
-	
-	//from RenderItem�AEntityItem��Render
+
+	//from RenderItem・ｽAEntityItem・ｽ・ｽRender
 	public void renderEntityItem(int par1, int par2)
     {
         Tessellator var3 = Tessellator.instance;
@@ -158,7 +160,7 @@ public class RenderSkullItem implements IItemRenderer
                 float var14 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.3F;
                 GL11.glTranslatef(var12, var13, var14);
             }
-        	
+
             GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
             var3.startDrawingQuads();
             var3.setNormal(0.0F, 1.0F, 0.0F);
@@ -170,8 +172,8 @@ public class RenderSkullItem implements IItemRenderer
             GL11.glPopMatrix();
         }
     }
-	
-	//��ɂ����Ă�Ƃ���Render
+
+	//・ｽ・ｽﾉゑｿｽ・ｽ・ｽ・ｽﾄゑｿｽﾆゑｿｽ・ｽ・ｽRender
 	public void renderEquipped(ItemStack is, int icon)
 	{
 		//RenderPlayer
@@ -185,8 +187,8 @@ public class RenderSkullItem implements IItemRenderer
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		//draw
 		this.renderItemIn2D(var4, var7, var8, var6, var9);
-		
-		//�G�t�F�N�g�������Ă�Ȃ�
+
+		//・ｽG・ｽt・ｽF・ｽN・ｽg・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ・ｽﾄゑｿｽﾈゑｿｽ
 		if (item.hasEffect(is))
 		{
 			GL11.glDepthFunc(GL11.GL_EQUAL);
@@ -217,11 +219,11 @@ public class RenderSkullItem implements IItemRenderer
             GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glDepthFunc(GL11.GL_LEQUAL);
 		}
-		
+
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 	}
-	
-	//��ɂ����Ă�Ƃ���Render
+
+	//・ｽ・ｽﾉゑｿｽ・ｽ・ｽ・ｽﾄゑｿｽﾆゑｿｽ・ｽ・ｽRender
 	public void renderItemIn2D(Tessellator par1Tessellator, float par2, float par3, float par4, float par5)
     {
         float var6 = 1.0F;
@@ -305,8 +307,8 @@ public class RenderSkullItem implements IItemRenderer
 
         par1Tessellator.draw();
     }
-	
-	//GUI�̒���Item��Render
+
+	//GUI・ｽﾌ抵ｿｽ・ｽ・ｽItem・ｽ・ｽRender
 	public void renderTexturedQuad(int par1, int par2, int par3, int par4, int par5, int par6)
     {
         float var7 = 0.00390625F;

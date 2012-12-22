@@ -1,20 +1,19 @@
 package ayamitsu.mobskullsplus.client.model;
 
-import net.minecraft.src.ModelRenderer;
-import net.minecraft.src.Entity;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
+import net.minecraft.client.model.ModelRenderer;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ModelSkullVillager extends ModelSkullBase
 {
 	public ModelRenderer subSkull;
-	
+
 	public ModelSkullVillager(float par1)
 	{
 		this(par1, 0.0F, 64, 64);
 	}
-	
+
 	public ModelSkullVillager(float par1, float par2, int par3, int par4)
 	{
 		this.skull = (new ModelRenderer(this)).setTextureSize(par3, par4);

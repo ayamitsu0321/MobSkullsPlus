@@ -1,19 +1,16 @@
 package ayamitsu.mobskullsplus.client;
 
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
-
 public interface ISkullRenderer
 {
 	/**
-	 * ÀÛ‚Ì•`‰æ
+	 * ï¿½ï¿½ï¿½Û‚Ì•`ï¿½ï¿½
 	 */
-	
-	@SideOnly(Side.CLIENT)
+
+	@cpw.mods.fml.relauncher.SideOnly(cpw.mods.fml.relauncher.Side.CLIENT)
 	public void renderSkull(int direction, float par5, EnumSkullRenderType type);
-	
+
 	/**
-	 * ƒeƒNƒXƒ`ƒƒã‚Ì”Ô†
+	 * ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½Ì”Ôï¿½
 	 */
 	public int getSpriteIndex(int meta);
 }

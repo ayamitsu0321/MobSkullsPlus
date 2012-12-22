@@ -1,13 +1,12 @@
 package ayamitsu.mobskullsplus.common;
 
-import net.minecraft.src.IBlockAccess;
-import net.minecraft.src.Block;
+import net.minecraft.block.Block;
 
 public interface IBlockBounds
 {
 	/**
-	 * Block‚Ì‚ ‚½‚è”»’è‚Ìset
+	 * Blockï¿½Ì‚ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½ï¿½set
 	 */
-	public void setBlockBounds(IBlockAccess iblockaccess, int blockX, int blockY, int blockZ, Block block);
-	
+	public void setBlockBounds(net.minecraft.world.IBlockAccess iblockaccess, int blockX, int blockY, int blockZ, Block block);
+
 }

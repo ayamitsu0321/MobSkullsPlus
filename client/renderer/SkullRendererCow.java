@@ -1,13 +1,12 @@
 package ayamitsu.mobskullsplus.client.renderer;
 
-import ayamitsu.mobskullsplus.*;
-import ayamitsu.mobskullsplus.client.*;
+import net.minecraft.client.model.ModelBase;
 
-import net.minecraft.src.*;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+
+import ayamitsu.mobskullsplus.client.EnumSkullRenderType;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class SkullRendererCow extends SkullRendererDefault
 {
@@ -15,12 +14,12 @@ public class SkullRendererCow extends SkullRendererDefault
 	{
 		super(tex, modelbase);
 	}
-	
+
 	public SkullRendererCow(int tex, ModelBase ... modelbase)
 	{
 		super(tex, modelbase);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	protected void callBackScale(int direction, float rotation, EnumSkullRenderType type)
 	{

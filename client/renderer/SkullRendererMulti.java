@@ -1,13 +1,13 @@
 package ayamitsu.mobskullsplus.client.renderer;
 
-import ayamitsu.mobskullsplus.*;
-import ayamitsu.mobskullsplus.client.*;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.OpenGlHelper;
 
-import net.minecraft.src.*;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+
+import ayamitsu.mobskullsplus.client.EnumSkullRenderType;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class SkullRendererMulti extends SkullRendererDefault
 {
@@ -16,44 +16,44 @@ public class SkullRendererMulti extends SkullRendererDefault
 	private boolean alphaSub = false;
 	private boolean specialAlphaMain = false;
 	private boolean specialAlphaSub = false;
-	
+
 	public SkullRendererMulti(int tex, ModelBase modelbase, ModelBase modelbase1)
 	{
 		super(tex, new ModelBase[] { modelbase, modelbase1 });
 	}
-	
+
 	public SkullRendererMulti setTexture(String str, String str1)
 	{
 		this.setTexture(str);
 		this.subTexture = str1;
 		return this;
 	}
-	
+
 	@Override
 	public String getTexture(int count)
 	{
 		return count == 0 ? this.texture : this.subTexture;
 	}
-	
+
 	public SkullRendererMulti setAlpha(boolean flag, boolean flag1)
 	{
 		this.alphaMain = flag;
 		this.alphaSub = flag1;
 		return this;
 	}
-	
+
 	public SkullRendererMulti setAlphaSpecial(boolean flag, boolean flag1)
 	{
 		this.specialAlphaMain = flag;
 		this.specialAlphaSub = flag1;
 		return this.setAlpha(flag, flag1);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	protected void setAlpha(int direction, float rotation, EnumSkullRenderType type, int count)
 	{
 		GL11.glDisable(GL11.GL_BLEND);
-		
+
 		if (count == 0)
 		{
 			if (this.alphaMain)
@@ -71,7 +71,7 @@ public class SkullRendererMulti extends SkullRendererDefault
 			}
 		}
 	}
-	
+
 	public void doAlpha(boolean special)
 	{
 		if (!special)

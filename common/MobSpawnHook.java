@@ -1,18 +1,16 @@
 package ayamitsu.mobskullsplus.common;
 
-import ayamitsu.mobskullsplus.*;
-
-import net.minecraft.src.*;
-
-import net.minecraftforge.event.entity.living.LivingSpecialSpawnEvent;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeSubscribe;
-
-import java.util.Random;
+import net.minecraftforge.event.entity.living.LivingSpecialSpawnEvent;
+import ayamitsu.mobskullsplus.MobSkullsPlus;
 
 public class MobSpawnHook
 {
 	public MobSpawnHook() {}
-	
+
 	@ForgeSubscribe
 	public void onLivinfSpecialSpawn(LivingSpecialSpawnEvent event)
 	{
@@ -20,13 +18,13 @@ public class MobSpawnHook
 		{
 			return;
 		}
-		
+
 		EntityLiving mob = event.entityLiving;
-		
+
 		if (mob instanceof EntityZombie && !((EntityZombie)mob).isVillager())
 		{
 			ItemStack helmet = mob.getCurrentArmor(3);
-			
+
 			if (helmet == null && mob.getRNG().nextInt(128) == 0)
 			{
 				//System.out.println("SET");

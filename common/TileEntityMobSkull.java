@@ -1,17 +1,20 @@
 package ayamitsu.mobskullsplus.common;
 
-import net.minecraft.src.*;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.tileentity.TileEntity;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntityMobSkull extends TileEntity
 {
-	/** •`‰æ‚·‚éƒ^ƒCƒv, ItemStack‚ÌitemDamage‚©‚ç’l‚ğ‚à‚ç‚¤ */
+	/** ï¿½`ï¿½æ‚·ï¿½ï¿½^ï¿½Cï¿½v, ItemStackï¿½ï¿½itemDamageï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½ç‚¤ */
 	private int skullType;
-	
-	/** İ’u‚µ‚½‚Æ‚«‚ÌŒü‚« */
+
+	/** ï¿½İ’uï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ÌŒï¿½ */
 	private int rotation;
-	
+
 	@Override
     public void writeToNBT(NBTTagCompound nbttagcompound)
 	{
@@ -19,7 +22,7 @@ public class TileEntityMobSkull extends TileEntity
 		nbttagcompound.setByte("Type", (byte)(this.skullType & 255));
 		nbttagcompound.setByte("Rot", (byte)(this.rotation & 255));
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound nbttagcompound)
 	{
@@ -27,47 +30,47 @@ public class TileEntityMobSkull extends TileEntity
 		this.skullType = nbttagcompound.getByte("Type");
 		this.rotation = nbttagcompound.getByte("Rot");
 	}
-	
+
 	@Override
-	public Packet getDescriptionPacket()
+	public net.minecraft.network.packet.Packet getDescriptionPacket()
 	{
 		NBTTagCompound nbttagcompound = new NBTTagCompound();
 		this.writeToNBT(nbttagcompound);
 		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 0, nbttagcompound);
 	}
-	
+
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet)
 	{
 		this.readFromNBT(packet.customParam1);
 	}
-	
+
 	/**
-	 * Entity‚ÌID‚ğset
-	 * ‚à‚µ‚±‚¿‚ç‚Åİ’è‚µ‚½ID‚ÉŠÜ‚Ü‚ê‚Ä‚È‚©‚Á‚½‚çZombie‚ÌID‚ğ‚©‚¦‚·
+	 * Entityï¿½ï¿½IDï¿½ï¿½set
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åİ’è‚µï¿½ï¿½IDï¿½ÉŠÜ‚Ü‚ï¿½Ä‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Zombieï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public void setSkullType(int id)
 	{
 		this.skullType = id;
 	}
-	
+
 	/**
-	 * Entity‚ÌID‚ğæ“¾
+	 * Entityï¿½ï¿½IDï¿½ï¿½ï¿½æ“¾
 	 */
 	public int getSkullType()
 	{
 		return this.skullType;
 	}
-	
+
 	/**
-	 * Render‚Ì•`‰æ‚Åg‚¤
-	 * Block‚ÌŒü‚«
+	 * Renderï¿½Ì•`ï¿½ï¿½Ågï¿½ï¿½
+	 * Blockï¿½ÌŒï¿½
 	 */
 	public void setSkullRotation(int rot)
 	{
 		this.rotation = rot;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public int getSkullRotation()
 	{

@@ -1,18 +1,17 @@
 package ayamitsu.mobskullsplus.client.renderer;
 
-import ayamitsu.mobskullsplus.*;
-import ayamitsu.mobskullsplus.client.*;
-
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.RenderEngine;
+import net.minecraft.entity.Entity;
 import net.minecraft.src.ModLoader;
-import net.minecraft.src.RenderEngine;
-import net.minecraft.src.ModelBase;
-import net.minecraft.src.IBlockAccess;
-import net.minecraft.src.Block;
-import net.minecraft.src.Entity;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import ayamitsu.mobskullsplus.client.EnumSkullRenderType;
+import ayamitsu.mobskullsplus.client.ISkullRenderer;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class SkullRendererBase implements ISkullRenderer
 {
@@ -24,45 +23,45 @@ public abstract class SkullRendererBase implements ISkullRenderer
 	protected float ySize = 0.5F;
 	protected float zSize = 0.5F;
 	public int spriteIndex = 0;
-	
+
 	public SkullRendererBase(ModelBase ... modelbase)
 	{
 		this.models = new ModelBase[modelbase.length];
-		
+
 		for (int i = 0; i < this.models.length; i++)
 		{
 			this.models[i] = modelbase[i];
 		}
 	}
-	
+
 	public SkullRendererBase(ModelBase modelbase)
 	{
 		this(new ModelBase[] { modelbase });
 	}
-	
+
 	public SkullRendererBase setTexture(String str)
 	{
 		this.texture = str;
 		return this;
 	}
-	
+
 	public String getTexture(int count)
 	{
 		return texture;
 	}
-	
+
 	public SkullRendererBase setSpriteIndex(int i)
 	{
 		this.spriteIndex = i;
 		return this;
 	}
-	
+
 	@Override
 	public int getSpriteIndex(int meta)
 	{
 		return this.spriteIndex;
 	}
-	
+
 	public SkullRendererBase setSize(float f, float f1, float f2)
 	{
 		this.xSize = f;
@@ -70,14 +69,14 @@ public abstract class SkullRendererBase implements ISkullRenderer
 		this.zSize = f2;
 		return this;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderSkull(int direction, float rotation, EnumSkullRenderType type)
 	{
 		GL11.glDisable(GL11.GL_CULL_FACE);
 		float rot = this.getRotation(direction, rotation, type);
-		
+
 		try
 		{
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -86,13 +85,13 @@ public abstract class SkullRendererBase implements ISkullRenderer
 			this.callBackScale(direction, rot, type);
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
 			int count;
-			
+
 			for (count = 0; count < this.models.length; count++)
 			{
 				this.setAlpha(direction, rot, type, count);
 				this.doRender(direction, rot, type, count);
 			}
-			
+
 			GL11.glDisable(GL11.GL_BLEND);
 			GL11.glEnable(GL11.GL_ALPHA_TEST);
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -102,21 +101,21 @@ public abstract class SkullRendererBase implements ISkullRenderer
 			e.printStackTrace();
 		}
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	protected void bindTexture(String path)
     {
-    	RenderEngine renderengine = ModLoader.getMinecraftInstance().renderEngine;
-    	
+		RenderEngine renderengine = ModLoader.getMinecraftInstance().renderEngine;
+
         if (renderengine != null)
         {
             renderengine.bindTexture(renderengine.getTexture(path));
         }
     }
-	
+
 	@SideOnly(Side.CLIENT)
 	protected void callBackScale(int direction, float rotation, EnumSkullRenderType type) {}
-	
+
 	@SideOnly(Side.CLIENT)
 	protected void doTranslate(int direction, float rotation, EnumSkullRenderType type)
 	{
@@ -142,7 +141,7 @@ public abstract class SkullRendererBase implements ISkullRenderer
 			}
 		}
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	protected float getRotation(int direction, float rotation, EnumSkullRenderType type)
 	{
@@ -168,10 +167,10 @@ public abstract class SkullRendererBase implements ISkullRenderer
 			return rotation;
 		}
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	protected void setAlpha(int direction, float rotation, EnumSkullRenderType type, int count) {}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void doRender(int direction, float rotation, EnumSkullRenderType type, int count)
 	{

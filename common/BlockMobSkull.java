@@ -1,13 +1,21 @@
 package ayamitsu.mobskullsplus.common;
 
-import ayamitsu.mobskullsplus.*;
-
-import net.minecraft.src.*;
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
-import java.util.Random;
-import java.util.List;
 import java.util.Iterator;
+
+import net.minecraft.block.BlockContainer;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import ayamitsu.mobskullsplus.MobSkullsPlus;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMobSkull extends BlockContainer
 {
@@ -17,37 +25,37 @@ public class BlockMobSkull extends BlockContainer
 		this.blockIndexInTexture = 104;
 		this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
 	}
-	
-	// Render‚·‚éƒ^ƒCƒv
+
+	// Renderï¿½ï¿½ï¿½ï¿½^ï¿½Cï¿½v
 	@Override
 	public int getRenderType()
 	{
 		return MobSkullsPlus.renderId;
 		//return -1;
 	}
-	
-	// Œõ‚ğ“§‰ß‚·‚é‚©
+
+	// ï¿½ï¿½ï¿½ğ“§‰ß‚ï¿½ï¿½é‚©
 	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
 	}
-	
-	// Render‚·‚é‚Æ‚«‚Í•’Ê‚ÌBlock‚¶‚á‚È‚¢‚æ(‚Â‚Ü‚è“yBlock‚İ‚½‚¢‚È‚Ì‚Å‚Í‚È‚¢)
+
+	// Renderï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Í•ï¿½ï¿½Ê‚ï¿½Blockï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½(ï¿½Â‚Ü‚ï¿½yBlockï¿½İ‚ï¿½ï¿½ï¿½ï¿½È‚Ì‚Å‚Í‚È‚ï¿½)
 	@Override
 	public boolean renderAsNormalBlock()
 	{
 		return false;
 	}
-	
-	// ƒTƒCƒY‚Ìİ’è
+
+	// ï¿½Tï¿½Cï¿½Yï¿½Ìİ’ï¿½
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
 	{
 		TileEntityMobSkull mobSkull = (TileEntityMobSkull)par1IBlockAccess.getBlockTileEntity(par2, par3, par4);
 		int type = mobSkull.getSkullType();
 		IBlockBounds blockBounds = BlockBoundsRegistry.getBlockBounds(type);
-		
+
 		if (blockBounds != null)
 		{
 			blockBounds.setBlockBounds(par1IBlockAccess, par2, par3, par4, this);
@@ -57,31 +65,31 @@ public class BlockMobSkull extends BlockContainer
 			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		}
 	}
-	
-	// ƒTƒCƒY‚Ìæ“¾
+
+	// ï¿½Tï¿½Cï¿½Yï¿½Ìæ“¾
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
 	{
 		this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
 		return super.getCollisionBoundingBoxFromPool(par1World, par2, par3, par4);
 	}
-	
-	// ‚¨‚©‚ê‚½‚Æ‚«
+
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½Æ‚ï¿½
 	@Override
 	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving)
 	{
 		int var6 = MathHelper.floor_double((double)(par5EntityLiving.rotationYaw * 4.0F / 360.0F) + 2.5D) & 3;
 		par1World.setBlockMetadataWithNotify(par2, par3, par4, var6);
 	}
-	
-	// BlockContainer‚Æ‚¢‚¤‚©TileEntity‚ğ‚à‚ÂBlock‚É•K{
+
+	// BlockContainerï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½TileEntityï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Blockï¿½É•Kï¿½{
 	@Override
 	public TileEntity createNewTileEntity(World par1World)
 	{
 		return new TileEntityMobSkull();
 	}
 
-	// Block©‘Ì‚ªƒhƒƒbƒv‚·‚é‚Æ‚«‚ÉEntityItem‚É‚Â‚¯‚éƒƒ^ƒf[ƒ^
+	// Blockï¿½ï¿½ï¿½Ì‚ï¿½ï¿½hï¿½ï¿½ï¿½bï¿½vï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½EntityItemï¿½É‚Â‚ï¿½ï¿½éƒï¿½^ï¿½fï¿½[ï¿½^
     @Override
     public int getDamageValue(World par1World, int par2, int par3, int par4)
     {
@@ -89,18 +97,18 @@ public class BlockMobSkull extends BlockContainer
         return var5 instanceof TileEntityMobSkull ? ((TileEntityMobSkull)var5).getSkullType() : super.getDamageValue(par1World, par2, par3, par4);
     }
 
-	// ƒhƒƒbƒv‚Ìƒƒ^ƒf[ƒ^
+	// ï¿½hï¿½ï¿½ï¿½bï¿½vï¿½ï¿½ï¿½Ìƒï¿½ï¿½^ï¿½fï¿½[ï¿½^
 	@Override
     public int damageDropped(int par1)
     {
         return par1;
     }
-	
-	// ƒAƒCƒeƒ€‚Ìƒhƒƒbƒv
+
+	// ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½Ìƒhï¿½ï¿½ï¿½bï¿½v
 	@Override
     public void dropBlockAsItemWithChance(World par1World, int par2, int par3, int par4, int par5, float par6, int par7) {}
-	
-	// ÌŒ@‚³‚ê‚½‚Æ‚«
+
+	// ï¿½ÌŒ@ï¿½ï¿½ï¿½ê‚½ï¿½Æ‚ï¿½
 	@Override
 	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer)
     {
@@ -112,8 +120,8 @@ public class BlockMobSkull extends BlockContainer
 
         super.onBlockHarvested(par1World, par2, par3, par4, par5, par6EntityPlayer);
     }
-	
-	// ‚±‚í‚³‚ê‚½‚Æ‚«
+
+	// ï¿½ï¿½ï¿½í‚³ï¿½ê‚½ï¿½Æ‚ï¿½
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
     {
@@ -127,11 +135,11 @@ public class BlockMobSkull extends BlockContainer
             super.breakBlock(par1World, par2, par3, par4, par5, par6);
         }
     }
-	
-	// ƒNƒŠƒGƒCƒeƒBƒu‚Ìƒ^ƒu‚É•\¦
+
+	// ï¿½Nï¿½ï¿½ï¿½Gï¿½Cï¿½eï¿½Bï¿½uï¿½Ìƒ^ï¿½uï¿½É•\ï¿½ï¿½
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(int id, CreativeTabs tab, List list)
+	public void getSubBlocks(int id, CreativeTabs tab, java.util.List list)
 	{
 		for (Iterator iterator = ayamitsu.mobskullsplus.client.RendererRegistry.getMap().keySet().iterator(); iterator.hasNext();)
 		{

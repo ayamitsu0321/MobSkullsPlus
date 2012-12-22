@@ -1,22 +1,27 @@
 package ayamitsu.mobskullsplus;
 
-import ayamitsu.mobskullsplus.common.*;
-
-import net.minecraft.src.*;
-
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.registry.*;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
-
 import java.util.logging.Level;
-import java.util.BitSet;
+
+import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.Property;
+import ayamitsu.mobskullsplus.common.BlockBoundsCube;
+import ayamitsu.mobskullsplus.common.BlockBoundsRegistry;
+import ayamitsu.mobskullsplus.common.BlockMobSkull;
+import ayamitsu.mobskullsplus.common.CommonProxy;
+import ayamitsu.mobskullsplus.common.ItemMobSkull;
+import ayamitsu.mobskullsplus.common.MobSpawnHook;
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(
 	modid = "MobSkullsPlus",
@@ -33,20 +38,20 @@ public class MobSkullsPlus
 {
 	@Mod.Instance("MobSkullsPlus")
 	public static MobSkullsPlus instance;
-	
+
 	@SidedProxy(clientSide = "ayamitsu.mobskullsplus.client.ClientProxy", serverSide = "ayamitsu.mobskullsplus.common.CommonProxy")
 	public static CommonProxy proxy;
-	
+
 	public static Block skull;
 	public static int skullId;
 	public static int renderId;
 	public static final String terrain = "/ayamitsu/mobskullsplus/terrain.png";
-	
+
 	@Mod.PreInit
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-		
+
 		try
 		{
 			config.load();
@@ -63,7 +68,7 @@ public class MobSkullsPlus
 			config.save();
 		}
 	}
-	
+
 	@Mod.Init
 	public void init(FMLInitializationEvent event)
 	{
@@ -76,7 +81,7 @@ public class MobSkullsPlus
 		LanguageRegistry.instance().addNameForObject(this.skull, "en_US", "MobSkull");
 		MinecraftForge.EVENT_BUS.register(new MobSpawnHook());
 		proxy.load();
-		
+
 		BlockBoundsRegistry.registerBlockBounds(0, "Creeper Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(1, "Skeleton Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(2, "Zombie Head", new BlockBoundsCube());
@@ -107,7 +112,7 @@ public class MobSkullsPlus
 		BlockBoundsRegistry.registerBlockBounds(27, "Red Ocelot Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(28, "Black Ocelot Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(29, "Ghast Fire Head", new BlockBoundsCube(1.0F, 1.0F, 1.0F));
-		
+
 		/*GameRegistry.addRecipe(new ItemStack(this.skull.blockID, 1, 20),
 			new Object[] {
 				"##",

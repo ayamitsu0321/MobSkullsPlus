@@ -1,26 +1,28 @@
 package ayamitsu.mobskullsplus.client;
 
-import ayamitsu.mobskullsplus.*;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.world.IBlockAccess;
 
-import net.minecraft.src.*;
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class RenderSkullBlock implements ISimpleBlockRenderingHandler
 {
 	int renderId;
-	
+
 	public RenderSkullBlock(int id)
 	{
 		this.renderId = id;
 	}
-	
+
 	@Override
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderblocks)
 	{
 		ISkullRenderer renderer = RendererRegistry.getSkullRenderer(metadata);
-		
+
 		if (renderer != null)
 		{
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
