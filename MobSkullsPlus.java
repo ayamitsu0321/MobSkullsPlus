@@ -26,7 +26,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @Mod(
 	modid = "MobSkullsPlus",
 	name = "MobSkullsPlus",
-	version = "1.0.1"
+	version = "1.0.2"
 )
 @NetworkMod(
 	clientSideRequired = true,

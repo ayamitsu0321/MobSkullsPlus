@@ -9,6 +9,8 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.src.ModLoader;
+import cpw.mods.fml.client.TextureFXManager;
+import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
@@ -39,14 +41,15 @@ public class RenderSkullItem implements IItemRenderer
 	@Override
 	public boolean handleRenderType(ItemStack is, ItemRenderType type)
 	{
-		return type != ItemRenderType.ENTITY && type != ItemRenderType.EQUIPPED && is != null && RendererRegistry.contains(is.getItemDamage());
+		return (/*type != ItemRenderType.ENTITY &&*/ type != ItemRenderType.EQUIPPED || type == ItemRenderType.ENTITY && this.is3DItems()) && is != null && RendererRegistry.contains(is.getItemDamage());
 	}
 
+	// 回転とかするのをやってもらうかどうかの判定
 	@Override
 	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
 	{
-		// ・ｽ・ｽ・ｽﾉ費ｿｽ・ｽ・ｽ・ｽ・ｽﾆゑｿｽ・ｽﾌ描・ｽ・ｽ
-		if (type == ItemRenderType.EQUIPPED && helper == ItemRendererHelper.BLOCK_3D)
+		// 手に持ってたりBlockの状態、もしくは3DItemの場合
+		if (type == ItemRenderType.EQUIPPED && helper == ItemRendererHelper.BLOCK_3D || this.is3DItems() && helper == ItemRendererHelper.ENTITY_ROTATION)
 		{
 			return true;
 		}
@@ -57,7 +60,7 @@ public class RenderSkullItem implements IItemRenderer
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack is, Object... data)
 	{
-		// ・ｽ・ｽﾉゑｿｽ・ｽ・ｽ・ｽﾄゑｿｽﾆゑｿｽ
+		// 装備してる場合
 		if (type == ItemRenderType.EQUIPPED)
 		{
 			ISkullRenderer renderer = RendererRegistry.getSkullRenderer(is.getItemDamage());
@@ -72,12 +75,12 @@ public class RenderSkullItem implements IItemRenderer
 				GL11.glScalef(2.0F, 2.0F, 2.0F);
 			}
 
-			this.loadTexture(is.getItem().getTextureFile());// ・ｽe・ｽN・ｽX・ｽ`・ｽ・ｽ・ｽ・ｽbind
+			this.loadTexture(is.getItem().getTextureFile());// テクスチャをbind
 			Item item = is.getItem();
-			int icon = item.getIconFromDamage(is.getItemDamage());// ・ｽe・ｽN・ｽX・ｽ`・ｽ・ｽ・ｽ・ｽﾌ番搾ｿｽ
-			this.random.setSeed(187L);// important ・ｽ・ｽ・ｽd・ｽv!・ｽ`・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ閧ｳ・ｽ・ｽ・ｽ・ｽ
+			int icon = item.getIconFromDamage(is.getItemDamage());// metadataから乗算する色
+			this.random.setSeed(187L);// Randomのシードをsetし、安定させる
 
-			// ・ｽ・ｽ・ｽ・ｽ・ｽe・ｽN・ｽX・ｽ`・ｽ・ｽ
+			// 複数テクスチャを重ねる場合
 			if (item.requiresMultipleRenderPasses())
 			{
 				this.doRenderItem(is, type, icon, 0);
@@ -104,13 +107,13 @@ public class RenderSkullItem implements IItemRenderer
 	public void doRenderItem(ItemStack is, ItemRenderType type, int icon, int layer)
 	{
 		Item item = is.getItem();
-		int color = item.getColorFromItemStack(is, layer);// ・ｽ・ｽZ・ｽ・ｽ・ｽ・ｽF
+		int color = item.getColorFromItemStack(is, layer);// ItemStack、レイヤーから色を取得
 		float r = (float)(color >> 16 & 255) / 255.0F;
 		float g = (float)(color >> 8 & 255) / 255.0F;
 		float b = (float)(color & 255) / 255.0F;
-		GL11.glColor4f(r, g, b, 1.0F);// ・ｽ・ｽZ
-
-		if (type == ItemRenderType.INVENTORY)// GUI・ｽﾌとゑｿｽ
+		GL11.glColor4f(r, g, b, 1.0F);// 色の乗算
+		
+		if (type == ItemRenderType.INVENTORY)// GUIでの描画
 		{
 			this.renderTexturedQuad(0, 0, icon % 16 * 16, icon / 16 * 16, 16, 16);
 		}
@@ -133,7 +136,7 @@ public class RenderSkullItem implements IItemRenderer
 				stack = 4;
 			}
 
-			this.renderEntityItem(icon, stack);// EntityItem・ｽﾌ描・ｽ・ｽ
+			this.renderEntityItem(icon, stack);// EntityItemと同じ
 		}
 	}
 
@@ -160,16 +163,26 @@ public class RenderSkullItem implements IItemRenderer
                 float var14 = (this.random.nextFloat() * 2.0F - 1.0F) * 0.3F;
                 GL11.glTranslatef(var12, var13, var14);
             }
-
-            GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-            var3.startDrawingQuads();
-            var3.setNormal(0.0F, 1.0F, 0.0F);
-            var3.addVertexWithUV((double)(0.0F - var9), (double)(0.0F - var10), 0.0D, (double)var4, (double)var7);
-            var3.addVertexWithUV((double)(var8 - var9), (double)(0.0F - var10), 0.0D, (double)var5, (double)var7);
-            var3.addVertexWithUV((double)(var8 - var9), (double)(1.0F - var10), 0.0D, (double)var5, (double)var6);
-            var3.addVertexWithUV((double)(0.0F - var9), (double)(1.0F - var10), 0.0D, (double)var4, (double)var6);
-            var3.draw();
-            GL11.glPopMatrix();
+        	
+        	if (this.is3DItems())
+        	{
+        		GL11.glTranslatef(0.5F, 0.0F, 0.0F);
+        		GL11.glRotatef(180F, 0.0F, 1.0F, 0.0F);
+        		renderItemIn2D(var3, var5, var6, var4 , var7);
+	            GL11.glPopMatrix();
+        	}
+        	else
+        	{
+	            GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+	            var3.startDrawingQuads();
+	            var3.setNormal(0.0F, 1.0F, 0.0F);
+	            var3.addVertexWithUV((double)(0.0F - var9), (double)(0.0F - var10), 0.0D, (double)var4, (double)var7);
+	            var3.addVertexWithUV((double)(var8 - var9), (double)(0.0F - var10), 0.0D, (double)var5, (double)var7);
+	            var3.addVertexWithUV((double)(var8 - var9), (double)(1.0F - var10), 0.0D, (double)var5, (double)var6);
+	            var3.addVertexWithUV((double)(0.0F - var9), (double)(1.0F - var10), 0.0D, (double)var4, (double)var6);
+	            var3.draw();
+	            GL11.glPopMatrix();
+        	}
         }
     }
 
@@ -188,7 +201,7 @@ public class RenderSkullItem implements IItemRenderer
 		//draw
 		this.renderItemIn2D(var4, var7, var8, var6, var9);
 
-		//・ｽG・ｽt・ｽF・ｽN・ｽg・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ・ｽﾄゑｿｽﾈゑｿｽ
+		// エフェクトがついてるか
 		if (item.hasEffect(is))
 		{
 			GL11.glDepthFunc(GL11.GL_EQUAL);
@@ -223,7 +236,7 @@ public class RenderSkullItem implements IItemRenderer
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 	}
 
-	//・ｽ・ｽﾉゑｿｽ・ｽ・ｽ・ｽﾄゑｿｽﾆゑｿｽ・ｽ・ｽRender
+	// 手にもってるときのRender
 	public void renderItemIn2D(Tessellator par1Tessellator, float par2, float par3, float par4, float par5)
     {
         float var6 = 1.0F;
@@ -249,10 +262,15 @@ public class RenderSkullItem implements IItemRenderer
         float var10;
         float var11;
 
-        for (var8 = 0; var8 < 16; ++var8)
+        int tileSize = TextureFXManager.instance().getTextureDimensions(GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D)).width / 16;
+
+        float tx = 1.0f / (32 * tileSize);
+        float tz = 1.0f /  tileSize;
+
+        for (var8 = 0; var8 < tileSize; ++var8)
         {
-            var9 = (float)var8 / 16.0F;
-            var10 = par2 + (par4 - par2) * var9 - 0.001953125F;
+            var9 = (float)var8 / tileSize;
+            var10 = par2 + (par4 - par2) * var9 - tx;
             var11 = var6 * var9;
             par1Tessellator.addVertexWithUV((double)var11, 0.0D, (double)(0.0F - var7), (double)var10, (double)par5);
             par1Tessellator.addVertexWithUV((double)var11, 0.0D, 0.0D, (double)var10, (double)par5);
@@ -264,11 +282,11 @@ public class RenderSkullItem implements IItemRenderer
         par1Tessellator.startDrawingQuads();
         par1Tessellator.setNormal(1.0F, 0.0F, 0.0F);
 
-        for (var8 = 0; var8 < 16; ++var8)
+        for (var8 = 0; var8 < tileSize; ++var8)
         {
-            var9 = (float)var8 / 16.0F;
-            var10 = par2 + (par4 - par2) * var9 - 0.001953125F;
-            var11 = var6 * var9 + 0.0625F;
+            var9 = (float)var8 / tileSize;
+            var10 = par2 + (par4 - par2) * var9 - tx;
+            var11 = var6 * var9 + tz;
             par1Tessellator.addVertexWithUV((double)var11, 1.0D, (double)(0.0F - var7), (double)var10, (double)par3);
             par1Tessellator.addVertexWithUV((double)var11, 1.0D, 0.0D, (double)var10, (double)par3);
             par1Tessellator.addVertexWithUV((double)var11, 0.0D, 0.0D, (double)var10, (double)par5);
@@ -279,11 +297,11 @@ public class RenderSkullItem implements IItemRenderer
         par1Tessellator.startDrawingQuads();
         par1Tessellator.setNormal(0.0F, 1.0F, 0.0F);
 
-        for (var8 = 0; var8 < 16; ++var8)
+        for (var8 = 0; var8 < tileSize; ++var8)
         {
             var9 = (float)var8 / 16.0F;
-            var10 = par5 + (par3 - par5) * var9 - 0.001953125F;
-            var11 = var6 * var9 + 0.0625F;
+            var10 = par5 + (par3 - par5) * var9 - tx;
+            var11 = var6 * var9 + tz;
             par1Tessellator.addVertexWithUV(0.0D, (double)var11, 0.0D, (double)par2, (double)var10);
             par1Tessellator.addVertexWithUV((double)var6, (double)var11, 0.0D, (double)par4, (double)var10);
             par1Tessellator.addVertexWithUV((double)var6, (double)var11, (double)(0.0F - var7), (double)par4, (double)var10);
@@ -294,10 +312,10 @@ public class RenderSkullItem implements IItemRenderer
         par1Tessellator.startDrawingQuads();
         par1Tessellator.setNormal(0.0F, -1.0F, 0.0F);
 
-        for (var8 = 0; var8 < 16; ++var8)
+        for (var8 = 0; var8 < tileSize; ++var8)
         {
-            var9 = (float)var8 / 16.0F;
-            var10 = par5 + (par3 - par5) * var9 - 0.001953125F;
+            var9 = (float)var8 / tileSize;
+            var10 = par5 + (par3 - par5) * var9 - tx;
             var11 = var6 * var9;
             par1Tessellator.addVertexWithUV((double)var6, (double)var11, 0.0D, (double)par4, (double)var10);
             par1Tessellator.addVertexWithUV(0.0D, (double)var11, 0.0D, (double)par2, (double)var10);
@@ -308,7 +326,7 @@ public class RenderSkullItem implements IItemRenderer
         par1Tessellator.draw();
     }
 
-	//GUI・ｽﾌ抵ｿｽ・ｽ・ｽItem・ｽ・ｽRender
+	// GUIの中のItemのRender
 	public void renderTexturedQuad(int par1, int par2, int par3, int par4, int par5, int par6)
     {
         float var7 = 0.00390625F;
@@ -321,4 +339,9 @@ public class RenderSkullItem implements IItemRenderer
         var9.addVertexWithUV((double)(par1 + 0), (double)(par2 + 0), 0D, (double)((float)(par3 + 0) * var7), (double)((float)(par4 + 0) * var8));
         var9.draw();
     }
+	
+	public boolean is3DItems()
+	{
+		return FMLClientHandler.instance().getClient().gameSettings.fancyGraphics;
+	}
 }
