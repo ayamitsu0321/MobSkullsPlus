@@ -10,12 +10,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SkullRendererOcelot extends SkullRendererDefault
 {
-	public SkullRendererOcelot(int tex, ModelBase modelbase)
+	public SkullRendererOcelot(String tex, ModelBase modelbase)
 	{
 		super(tex, modelbase);
 	}
 
-	public SkullRendererOcelot(int tex, ModelBase ... modelbase)
+	public SkullRendererOcelot(String tex, ModelBase ... modelbase)
 	{
 		super(tex, modelbase);
 	}

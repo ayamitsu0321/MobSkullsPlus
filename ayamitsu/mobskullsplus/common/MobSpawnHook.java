@@ -4,7 +4,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.living.LivingSpecialSpawnEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import ayamitsu.mobskullsplus.MobSkullsPlus;
 
 public class MobSpawnHook
@@ -12,7 +12,7 @@ public class MobSpawnHook
 	public MobSpawnHook() {}
 
 	@ForgeSubscribe
-	public void onLivinfSpecialSpawn(LivingSpecialSpawnEvent event)
+	public void onLivinfSpecialSpawn(LivingSpawnEvent event)
 	{
 		if (event.entityLiving == null)
 		{

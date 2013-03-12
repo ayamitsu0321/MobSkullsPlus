@@ -17,7 +17,7 @@ public class SkullRendererMulti extends SkullRendererDefault
 	private boolean specialAlphaMain = false;
 	private boolean specialAlphaSub = false;
 
-	public SkullRendererMulti(int tex, ModelBase modelbase, ModelBase modelbase1)
+	public SkullRendererMulti(String tex, ModelBase modelbase, ModelBase modelbase1)
 	{
 		super(tex, new ModelBase[] { modelbase, modelbase1 });
 	}

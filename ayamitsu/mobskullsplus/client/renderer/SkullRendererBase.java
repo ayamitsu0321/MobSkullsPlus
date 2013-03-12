@@ -22,7 +22,7 @@ public abstract class SkullRendererBase implements ISkullRenderer
 	protected float xSize = 0.5F;
 	protected float ySize = 0.5F;
 	protected float zSize = 0.5F;
-	public int spriteIndex = 0;
+	public String iconPath = "";
 
 	public SkullRendererBase(ModelBase ... modelbase)
 	{
@@ -50,16 +50,16 @@ public abstract class SkullRendererBase implements ISkullRenderer
 		return texture;
 	}
 
-	public SkullRendererBase setSpriteIndex(int i)
+	public SkullRendererBase setIconPath(String path)
 	{
-		this.spriteIndex = i;
+		this.iconPath = path;
 		return this;
 	}
 
 	@Override
-	public int getSpriteIndex(int meta)
+	public String getIconPath()
 	{
-		return this.spriteIndex;
+		return this.iconPath;
 	}
 
 	public SkullRendererBase setSize(float f, float f1, float f2)
@@ -109,7 +109,8 @@ public abstract class SkullRendererBase implements ISkullRenderer
 
         if (renderengine != null)
         {
-            renderengine.bindTexture(renderengine.getTexture(path));
+        	renderengine.func_98187_b(path);
+            //renderengine.bindTexture(renderengine.getTexture(path));
         }
     }
 

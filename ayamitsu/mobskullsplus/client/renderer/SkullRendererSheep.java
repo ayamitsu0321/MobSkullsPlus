@@ -10,7 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SkullRendererSheep extends SkullRendererMulti
 {
-	public SkullRendererSheep(int tex, ModelBase modelbase, ModelBase modelbase1)
+	public SkullRendererSheep(String tex, ModelBase modelbase, ModelBase modelbase1)
 	{
 		super(tex, modelbase, modelbase1);
 	}

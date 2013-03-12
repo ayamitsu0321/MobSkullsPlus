@@ -10,7 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SkullRendererPig extends SkullRendererMulti
 {
-	public SkullRendererPig(int tex, ModelBase modelbase, ModelBase modelbase1)
+	public SkullRendererPig(String tex, ModelBase modelbase, ModelBase modelbase1)
 	{
 		super(tex, modelbase, modelbase1);
 	}

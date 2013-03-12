@@ -26,7 +26,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 @Mod(
 	modid = "MobSkullsPlus",
 	name = "MobSkullsPlus",
-	version = "1.0.2"
+	version = "1.0.3"
 )
 @NetworkMod(
 	clientSideRequired = true,
@@ -45,7 +45,6 @@ public class MobSkullsPlus
 	public static Block skull;
 	public static int skullId;
 	public static int renderId;
-	public static final String terrain = "/ayamitsu/mobskullsplus/terrain.png";
 
 	@Mod.PreInit
 	public void preInit(FMLPreInitializationEvent event)
@@ -72,12 +71,11 @@ public class MobSkullsPlus
 	@Mod.Init
 	public void init(FMLInitializationEvent event)
 	{
-		//MinecraftForgeClient.preloadTexture(terrain);
 		this.renderId = proxy.getUniqueRenderId();
-		this.skull = new BlockMobSkull(this.skullId).setBlockName("mobSkull").setCreativeTab(CreativeTabs.tabDecorations);
-		GameRegistry.registerBlock(this.skull);
+		this.skull = new BlockMobSkull(this.skullId).setUnlocalizedName("mobSkull").setCreativeTab(CreativeTabs.tabDecorations);
+		GameRegistry.registerBlock(this.skull, "mobSkull");
 		Item.itemsList[this.skull.blockID] = null;
-		Item.itemsList[this.skull.blockID] = new ItemMobSkull(this.skull.blockID - 256).setItemName("mobSkull");
+		Item.itemsList[this.skull.blockID] = new ItemMobSkull(this.skull.blockID - 256).setUnlocalizedName("mobSkull");
 		LanguageRegistry.instance().addNameForObject(this.skull, "en_US", "MobSkull");
 		MinecraftForge.EVENT_BUS.register(new MobSpawnHook());
 		proxy.load();
@@ -112,13 +110,5 @@ public class MobSkullsPlus
 		BlockBoundsRegistry.registerBlockBounds(27, "Red Ocelot Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(28, "Black Ocelot Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(29, "Ghast Fire Head", new BlockBoundsCube(1.0F, 1.0F, 1.0F));
-
-		/*GameRegistry.addRecipe(new ItemStack(this.skull.blockID, 1, 20),
-			new Object[] {
-				"##",
-				'#', Block.dirt
-			}
-		);*/
-		//MobSkullsList.init();
 	}
 }

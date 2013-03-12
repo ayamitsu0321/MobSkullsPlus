@@ -32,7 +32,7 @@ public class PacketHandler implements IPacketHandler
 		if (helmet == null && is != null)
 		{
 			ItemStack is1 = is.splitStack(1);
-			player.setCurrentItemOrArmor(3, is1);
+			player.setCurrentItemOrArmor(4, is1);
 
 			if (is.stackSize <= 0)
 			{

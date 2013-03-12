@@ -4,51 +4,55 @@ import java.util.Iterator;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import ayamitsu.mobskullsplus.MobSkullsPlus;
+import ayamitsu.mobskullsplus.client.ISkullRenderer;
+import ayamitsu.mobskullsplus.client.RendererRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMobSkull extends BlockContainer
 {
+	protected Icon[] icons;
+
 	public BlockMobSkull(int id)
 	{
 		super(id, Material.circuits);
-		this.blockIndexInTexture = 104;
 		this.setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
 	}
 
-	// Render����^�C�v
+	// use client side only
 	@Override
 	public int getRenderType()
 	{
 		return MobSkullsPlus.renderId;
-		//return -1;
 	}
 
-	// ���𓧉߂��邩
+	// not opaque block
 	@Override
 	public boolean isOpaqueCube()
 	{
 		return false;
 	}
 
-	// Render����Ƃ��͕��ʂ�Block����Ȃ���(�܂�yBlock�݂����Ȃ̂ł͂Ȃ�)
+	//  not render normal cube block
 	@Override
 	public boolean renderAsNormalBlock()
 	{
 		return false;
 	}
 
-	// �T�C�Y�̐ݒ�
+	// set size
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
 	{
@@ -66,7 +70,6 @@ public class BlockMobSkull extends BlockContainer
 		}
 	}
 
-	// �T�C�Y�̎擾
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
 	{
@@ -74,22 +77,19 @@ public class BlockMobSkull extends BlockContainer
 		return super.getCollisionBoundingBoxFromPool(par1World, par2, par3, par4);
 	}
 
-	// �����ꂽ�Ƃ�
 	@Override
-	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving)
+	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving, ItemStack par6ItemStack)
 	{
 		int var6 = MathHelper.floor_double((double)(par5EntityLiving.rotationYaw * 4.0F / 360.0F) + 2.5D) & 3;
-		par1World.setBlockMetadataWithNotify(par2, par3, par4, var6);
+		par1World.setBlockMetadataWithNotify(par2, par3, par4, var6, 3);
 	}
 
-	// BlockContainer�Ƃ�����TileEntity������Block�ɕK�{
 	@Override
 	public TileEntity createNewTileEntity(World par1World)
 	{
 		return new TileEntityMobSkull();
 	}
 
-	// Block���̂��h���b�v����Ƃ���EntityItem�ɂ��郁�^�f�[�^
     @Override
     public int getDamageValue(World par1World, int par2, int par3, int par4)
     {
@@ -97,31 +97,27 @@ public class BlockMobSkull extends BlockContainer
         return var5 instanceof TileEntityMobSkull ? ((TileEntityMobSkull)var5).getSkullType() : super.getDamageValue(par1World, par2, par3, par4);
     }
 
-	// �h���b�v���̃��^�f�[�^
 	@Override
     public int damageDropped(int par1)
     {
         return par1;
     }
 
-	// �A�C�e���̃h���b�v
 	@Override
     public void dropBlockAsItemWithChance(World par1World, int par2, int par3, int par4, int par5, float par6, int par7) {}
 
-	// �̌@���ꂽ�Ƃ�
 	@Override
 	public void onBlockHarvested(World par1World, int par2, int par3, int par4, int par5, EntityPlayer par6EntityPlayer)
     {
         if (par6EntityPlayer.capabilities.isCreativeMode)
         {
             par5 |= 8;
-            par1World.setBlockMetadataWithNotify(par2, par3, par4, par5);
+            par1World.setBlockMetadataWithNotify(par2, par3, par4, par5, 3);
         }
 
         super.onBlockHarvested(par1World, par2, par3, par4, par5, par6EntityPlayer);
     }
 
-	// ���킳�ꂽ�Ƃ�
 	@Override
 	public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
     {
@@ -136,15 +132,25 @@ public class BlockMobSkull extends BlockContainer
         }
     }
 
-	// �N���G�C�e�B�u�̃^�u�ɕ\��
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(int id, CreativeTabs tab, java.util.List list)
 	{
-		for (Iterator iterator = ayamitsu.mobskullsplus.client.RendererRegistry.getMap().keySet().iterator(); iterator.hasNext();)
+		for (Integer integer : ayamitsu.mobskullsplus.client.RendererRegistry.getMap().keySet())
 		{
-			Integer entityId = (Integer)iterator.next();
-			list.add(new ItemStack(id, 1, entityId.intValue()));
+			list.add(new ItemStack(id, 1, integer.intValue()));
 		}
 	}
+
+	@SideOnly(Side.CLIENT)
+    public void func_94332_a(IconRegister par1IconRegister)
+    {
+		int i = -1;
+		this.icons = new Icon[ayamitsu.mobskullsplus.client.RendererRegistry.getMap().values().size()];
+
+		for (ISkullRenderer renderer : RendererRegistry.getMap().values())
+		{
+			this.icons[++i] = par1IconRegister.func_94245_a("ayamitsu/mobskullsplus:" + renderer.getIconPath());
+		}
+    }
 }

@@ -24,12 +24,12 @@ public class SkullRendererVillager implements ISkullRenderer
 	private float ySize = 0.625F;
 	private float zSize = 0.5F;
 	private boolean isAlpha = false;
-	private final int spriteIndex;
+	private final String iconPath;
 
-	public SkullRendererVillager(int tex, ModelBase modelbase)
+	public SkullRendererVillager(String tex, ModelBase modelbase)
 	{
 		this.model = modelbase;
-		this.spriteIndex = tex;
+		this.iconPath = tex;
 	}
 
 	public SkullRendererVillager setTextureFile(String str)
@@ -53,9 +53,9 @@ public class SkullRendererVillager implements ISkullRenderer
 	}
 
 	@Override
-	public int getSpriteIndex(int meta)
+	public String getIconPath()
 	{
-		return this.spriteIndex;
+		return this.iconPath;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -112,7 +112,8 @@ public class SkullRendererVillager implements ISkullRenderer
 
         if (var2 != null)
         {
-            var2.bindTexture(var2.getTexture(par1Str));
+        	var2.func_98187_b(par1Str);
+            //var2.bindTexture(var2.getTexture(par1Str));
         }
     }
 }

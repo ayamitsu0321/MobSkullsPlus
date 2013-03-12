@@ -1,16 +1,19 @@
 package ayamitsu.mobskullsplus.client;
 
+import net.minecraft.util.Icon;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public interface ISkullRenderer
 {
 	/**
-	 * ���ۂ̕`��
+	 * do render
 	 */
-
-	@cpw.mods.fml.relauncher.SideOnly(cpw.mods.fml.relauncher.Side.CLIENT)
-	public void renderSkull(int direction, float par5, EnumSkullRenderType type);
+	void renderSkull(int direction, float par5, EnumSkullRenderType type);
 
 	/**
-	 * �e�N�X�`����̔ԍ�
+	 * return texture path
+	 * example: return "icon"; -> path is "mods/ayamitsu/mobskullsplus/textures/blocks/icon.png"
 	 */
-	public int getSpriteIndex(int meta);
+	String getIconPath();
 }

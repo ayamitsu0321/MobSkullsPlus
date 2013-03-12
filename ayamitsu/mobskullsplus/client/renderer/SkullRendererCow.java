@@ -10,12 +10,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SkullRendererCow extends SkullRendererDefault
 {
-	public SkullRendererCow(int tex, ModelBase modelbase)
+	public SkullRendererCow(String tex, ModelBase modelbase)
 	{
 		super(tex, modelbase);
 	}
 
-	public SkullRendererCow(int tex, ModelBase ... modelbase)
+	public SkullRendererCow(String tex, ModelBase ... modelbase)
 	{
 		super(tex, modelbase);
 	}

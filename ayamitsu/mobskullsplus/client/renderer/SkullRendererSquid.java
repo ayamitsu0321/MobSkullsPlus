@@ -9,10 +9,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SkullRendererSquid extends SkullRendererBase
 {
-	public SkullRendererSquid(int tex)
+	public SkullRendererSquid(String tex)
 	{
 		super(new ModelSkullSquid());
-		this.spriteIndex = tex;
+		this.iconPath = tex;
 	}
 
 	@Override

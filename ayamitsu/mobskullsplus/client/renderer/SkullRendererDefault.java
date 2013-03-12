@@ -12,16 +12,16 @@ public class SkullRendererDefault extends SkullRendererBase
 {
 	protected float defaultScale = 1.0F;
 
-	public SkullRendererDefault(int tex, ModelBase modelbase)
+	public SkullRendererDefault(String tex, ModelBase modelbase)
 	{
 		super(modelbase);
-		this.spriteIndex = tex;
+		this.iconPath = tex;
 	}
 
-	public SkullRendererDefault(int tex, ModelBase ... modelbase)
+	public SkullRendererDefault(String tex, ModelBase ... modelbase)
 	{
 		super(modelbase);
-		this.spriteIndex = tex;
+		this.iconPath = tex;
 	}
 
 	public SkullRendererBase setScale(float f)
