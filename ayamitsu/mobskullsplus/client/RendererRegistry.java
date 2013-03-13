@@ -3,10 +3,6 @@ package ayamitsu.mobskullsplus.client;
 import java.util.HashMap;
 import java.util.Map;
 
-import ayamitsu.mobskullsplus.MobSkullsPlus;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
-
 public final class RendererRegistry
 {
 	private static Map<Integer, ISkullRenderer> rendererMap = new HashMap<Integer, ISkullRenderer>();;

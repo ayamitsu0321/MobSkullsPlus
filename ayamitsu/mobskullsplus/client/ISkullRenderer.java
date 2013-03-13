@@ -1,8 +1,5 @@
 package ayamitsu.mobskullsplus.client;
 
-import net.minecraft.util.Icon;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public interface ISkullRenderer
 {

@@ -15,7 +15,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import ayamitsu.mobskullsplus.MobSkullsPlus;
 import ayamitsu.mobskullsplus.client.ISkullRenderer;
 import ayamitsu.mobskullsplus.client.RendererRegistry;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -36,7 +35,6 @@ public class ItemMobSkull extends ItemBlock
 	@Override
 	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int blockX, int blockY, int blockZ, int face, float hitX, float hitY, float hitZ)
 	{
-		// ����
 		if (face == 0 || !world.getBlockMaterial(blockX, blockY, blockZ).isSolid())
 		{
 			return false;
@@ -108,8 +106,7 @@ public class ItemMobSkull extends ItemBlock
 	@Override
 	public boolean canPlaceItemBlockOnSide(World world, int blockX, int blockY, int blockZ, int face, EntityPlayer player, ItemStack is)
 	{
-		// ����
-		if (face == 0 || !world.getBlockMaterial(blockX, blockY, blockZ).isSolid() || !ayamitsu.mobskullsplus.client.RendererRegistry.contains(is.getItemDamage()))
+		if (face == 0 || !world.getBlockMaterial(blockX, blockY, blockZ).isSolid() || !RendererRegistry.contains(is.getItemDamage()))
 		{
 			return false;
 		}
@@ -169,28 +166,6 @@ public class ItemMobSkull extends ItemBlock
     }
 
 	@Override
-	public void onUpdate(ItemStack is, World world, Entity entity, int par4, boolean isHeld)
-	{
-		if (!world.isRemote || is == null)
-		{
-			return;
-		}
-
-		if (entity instanceof EntityPlayer)
-		{
-			EntityPlayer player = (EntityPlayer)entity;
-
-			// swing arm , mouse left click , held this , equip this
-			if (player.swingProgressInt == -1 && org.lwjgl.input.Mouse.isButtonDown(0) && isHeld)
-			{
-				byte[] data = new byte[1];
-				data[0] = 1;
-				PacketDispatcher.sendPacketToServer(new Packet250CustomPayload("mobskullsplus", data));
-			}
-		}
-	}
-
-	@Override
 	public boolean itemInteractionForEntity(ItemStack is, EntityLiving entityliving)
 	{
 		if (!(entityliving instanceof EntityPlayer))
@@ -218,12 +193,6 @@ public class ItemMobSkull extends ItemBlock
     	return this.iconMap.get(Integer.valueOf(meta));
     }
 
-	/*@Override
-	public String getTextureFile()
-	{
-		return MobSkullsPlus.terrain;
-	}*/
-
 	@SideOnly(Side.CLIENT)
     public void func_94581_a(IconRegister par1IconRegister)
 	{
@@ -234,6 +203,14 @@ public class ItemMobSkull extends ItemBlock
 			Icon icon = par1IconRegister.func_94245_a("ayamitsu/mobskullsplus:" + entry.getValue().getIconPath());
 			this.iconMap.put(entry.getKey(), icon);
 		}
+	}
+
+// forge
+
+	@Override
+	public boolean isValidArmor(ItemStack stack, int armorType)
+	{
+		return armorType == 0;
 	}
 
 }

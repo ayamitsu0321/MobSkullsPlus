@@ -1,7 +1,5 @@
 package ayamitsu.mobskullsplus.common;
 
-import java.util.Iterator;
-
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;

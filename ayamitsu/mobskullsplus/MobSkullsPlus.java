@@ -30,9 +30,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 )
 @NetworkMod(
 	clientSideRequired = true,
-	serverSideRequired = false,
-	channels = "mobskullsplus",
-	packetHandler = ayamitsu.mobskullsplus.common.PacketHandler.class
+	serverSideRequired = false
 )
 public class MobSkullsPlus
 {
@@ -111,4 +109,5 @@ public class MobSkullsPlus
 		BlockBoundsRegistry.registerBlockBounds(28, "Black Ocelot Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(29, "Ghast Fire Head", new BlockBoundsCube(1.0F, 1.0F, 1.0F));
 	}
+
 }
