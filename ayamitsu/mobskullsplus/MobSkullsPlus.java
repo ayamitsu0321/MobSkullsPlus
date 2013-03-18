@@ -14,14 +14,17 @@ import ayamitsu.mobskullsplus.common.BlockMobSkull;
 import ayamitsu.mobskullsplus.common.CommonProxy;
 import ayamitsu.mobskullsplus.common.ItemMobSkull;
 import ayamitsu.mobskullsplus.common.MobSpawnHook;
+import ayamitsu.mobskullsplus.common.VillagerTradeSkullHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
 
 @Mod(
 	modid = "MobSkullsPlus",
@@ -44,6 +47,9 @@ public class MobSkullsPlus
 	public static int skullId;
 	public static int renderId;
 
+	// config
+	public static boolean addModSkullToTrade;
+
 	@Mod.PreInit
 	public void preInit(FMLPreInitializationEvent event)
 	{
@@ -52,9 +58,8 @@ public class MobSkullsPlus
 		try
 		{
 			config.load();
-			int def = 3422;
-			Property prop = config.getBlock("MobSkull", def);
-			this.skullId = prop.getInt(def);
+			this.skullId = config.getBlock("MobSkull", 3422).getInt();
+			this.addModSkullToTrade = config.get("setting", "addModSkullToTrade", true).getBoolean(true);
 		}
 		catch (Exception e)
 		{
@@ -108,6 +113,31 @@ public class MobSkullsPlus
 		BlockBoundsRegistry.registerBlockBounds(27, "Red Ocelot Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(28, "Black Ocelot Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(29, "Ghast Fire Head", new BlockBoundsCube(1.0F, 1.0F, 1.0F));
+	}
+
+	@Mod.PostInit
+	public void postInit(FMLPostInitializationEvent event)
+	{
+		if (this.addModSkullToTrade)
+		{
+			int max = 5;
+
+			for (Integer villagerId : VillagerRegistry.getRegisteredVillagers())
+			{
+				if (villagerId > max)
+				{
+					max = villagerId;
+				}
+			}
+
+			for (int i = 0; i < max; i++)
+			{
+				if ((i & 1) == 0)
+				{
+					VillagerRegistry.instance().registerVillageTradeHandler(i, new VillagerTradeSkullHandler());
+				}
+			}
+		}
 	}
 
 }
