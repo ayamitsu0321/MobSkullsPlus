@@ -1,9 +1,10 @@
 package ayamitsu.mobskullsplus.client.renderer;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.RenderEngine;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.src.ModLoader;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -18,7 +19,7 @@ public abstract class SkullRendererBase implements ISkullRenderer
 	public static final float MIN = 0.0F;
 	public static final float MAX = 1.0F;
 	protected ModelBase[] models;
-	protected String texture = "/mob/char.png";
+	protected ResourceLocation texture;
 	protected float xSize = 0.5F;
 	protected float ySize = 0.5F;
 	protected float zSize = 0.5F;
@@ -41,11 +42,11 @@ public abstract class SkullRendererBase implements ISkullRenderer
 
 	public SkullRendererBase setTexture(String str)
 	{
-		this.texture = str;
+		this.texture = new ResourceLocation(str);
 		return this;
 	}
 
-	public String getTexture(int count)
+	public ResourceLocation getTexture(int count)
 	{
 		return texture;
 	}
@@ -103,13 +104,13 @@ public abstract class SkullRendererBase implements ISkullRenderer
 	}
 
 	@SideOnly(Side.CLIENT)
-	protected void bindTexture(String path)
+	protected void bindTexture(ResourceLocation locaiton)
     {
-		RenderEngine renderengine = ModLoader.getMinecraftInstance().renderEngine;
+		TextureManager renderengine = ModLoader.getMinecraftInstance().renderEngine;
 
         if (renderengine != null)
         {
-        	renderengine.func_98187_b(path);
+        	renderengine.func_110577_a(locaiton);
             //renderengine.bindTexture(renderengine.getTexture(path));
         }
     }

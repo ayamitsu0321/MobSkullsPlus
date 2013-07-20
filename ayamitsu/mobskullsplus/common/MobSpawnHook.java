@@ -1,6 +1,6 @@
 package ayamitsu.mobskullsplus.common;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -19,11 +19,11 @@ public class MobSpawnHook
 			return;
 		}
 
-		EntityLiving mob = event.entityLiving;
+		EntityLivingBase mob = event.entityLiving;
 
 		if (mob instanceof EntityZombie && !((EntityZombie)mob).isVillager())
 		{
-			ItemStack helmet = mob.getCurrentArmor(3);
+			ItemStack helmet = ((EntityZombie)mob).func_130225_q(3);
 
 			if (helmet == null && mob.getRNG().nextInt(128) == 0)
 			{

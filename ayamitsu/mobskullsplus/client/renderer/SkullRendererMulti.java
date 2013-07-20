@@ -2,6 +2,7 @@ package ayamitsu.mobskullsplus.client.renderer;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -11,7 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SkullRendererMulti extends SkullRendererDefault
 {
-	public String subTexture = "";
+	public ResourceLocation subTexture;
 	private boolean alphaMain = false;
 	private boolean alphaSub = false;
 	private boolean specialAlphaMain = false;
@@ -25,12 +26,12 @@ public class SkullRendererMulti extends SkullRendererDefault
 	public SkullRendererMulti setTexture(String str, String str1)
 	{
 		this.setTexture(str);
-		this.subTexture = str1;
+		this.subTexture = new ResourceLocation(str1);
 		return this;
 	}
 
 	@Override
-	public String getTexture(int count)
+	public ResourceLocation getTexture(int count)
 	{
 		return count == 0 ? this.texture : this.subTexture;
 	}

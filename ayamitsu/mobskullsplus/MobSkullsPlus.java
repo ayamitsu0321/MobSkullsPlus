@@ -7,7 +7,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.Property;
 import ayamitsu.mobskullsplus.common.BlockBoundsCube;
 import ayamitsu.mobskullsplus.common.BlockBoundsRegistry;
 import ayamitsu.mobskullsplus.common.BlockMobSkull;
@@ -29,7 +28,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 @Mod(
 	modid = "MobSkullsPlus",
 	name = "MobSkullsPlus",
-	version = "1.0.3"
+	version = "1.0.4"
 )
 @NetworkMod(
 	clientSideRequired = true,

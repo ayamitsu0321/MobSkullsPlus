@@ -2,13 +2,12 @@ package ayamitsu.mobskullsplus.common;
 
 import java.util.Random;
 
-import ayamitsu.mobskullsplus.MobSkullsPlus;
-
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
+import ayamitsu.mobskullsplus.MobSkullsPlus;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
 
 public class VillagerTradeSkullHandler implements IVillageTradeHandler

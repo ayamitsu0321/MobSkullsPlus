@@ -1,6 +1,9 @@
 package ayamitsu.mobskullsplus.client;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public interface ISkullRenderer
 {
 	/**
@@ -10,7 +13,7 @@ public interface ISkullRenderer
 
 	/**
 	 * return texture path
-	 * example: return "icon"; -> path is "mods/ayamitsu/mobskullsplus/textures/blocks/icon.png"
+	 * example: return "icon"; -> path is "assets//mobskullsplus/textures/blocks/icon.png"
 	 */
 	String getIconPath();
 }

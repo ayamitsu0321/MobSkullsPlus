@@ -7,22 +7,22 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import ayamitsu.mobskullsplus.client.ISkullRenderer;
 import ayamitsu.mobskullsplus.client.RendererRegistry;
-import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMobSkull extends ItemBlock
 {
+	@SideOnly(Side.CLIENT)
 	protected Map<Integer, Icon> iconMap;
 
 	public ItemMobSkull(int id)
@@ -76,7 +76,7 @@ public class ItemMobSkull extends ItemBlock
 			}
 			else
 			{
-				world.setBlockAndMetadataWithNotify(blockX, blockY, blockZ, this.getBlockID(), face, 3);
+				world.setBlock(blockX, blockY, blockZ, this.getBlockID(), face, 3);
 				int rot = 0;
 
 				if (face == 1)
@@ -166,11 +166,11 @@ public class ItemMobSkull extends ItemBlock
     }
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack is, EntityLiving entityliving)
+	public boolean func_111207_a(ItemStack is, EntityPlayer player, EntityLivingBase entityliving)
 	{
-		if (!(entityliving instanceof EntityPlayer))
+		if (!(entityliving instanceof EntityPlayer) && entityliving instanceof EntityLiving)
 		{
-			ItemStack helmet = entityliving.getCurrentArmor(3);
+			ItemStack helmet = ((EntityLiving)entityliving).func_130225_q(3);
 
 			if (helmet == null)
 			{
@@ -193,14 +193,15 @@ public class ItemMobSkull extends ItemBlock
     	return this.iconMap.get(Integer.valueOf(meta));
     }
 
+	@Override
 	@SideOnly(Side.CLIENT)
-    public void func_94581_a(IconRegister par1IconRegister)
+    public void registerIcons(IconRegister par1IconRegister)
 	{
 		this.iconMap = new HashMap<Integer, Icon>();
 
 		for (Map.Entry<Integer, ISkullRenderer> entry : RendererRegistry.getMap().entrySet())
 		{
-			Icon icon = par1IconRegister.func_94245_a("ayamitsu/mobskullsplus:" + entry.getValue().getIconPath());
+			Icon icon = par1IconRegister.registerIcon("mobskullsplus:" + entry.getValue().getIconPath());
 			this.iconMap.put(entry.getKey(), icon);
 		}
 	}
@@ -208,7 +209,7 @@ public class ItemMobSkull extends ItemBlock
 // forge
 
 	@Override
-	public boolean isValidArmor(ItemStack stack, int armorType)
+	public boolean isValidArmor(ItemStack stack, int armorType, Entity entity)
 	{
 		return armorType == 0;
 	}

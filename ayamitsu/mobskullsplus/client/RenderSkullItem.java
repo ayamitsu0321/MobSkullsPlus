@@ -1,12 +1,6 @@
 package ayamitsu.mobskullsplus.client;
 
-import java.util.Random;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderEngine;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.ModLoader;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
@@ -27,11 +21,6 @@ public class RenderSkullItem implements IItemRenderer
 	 *  BLOCK_3D,
 	 *  INVENTORY_BLOCK
 	 */
-
-	public Random random = new Random();
-	public RenderManager renderManager = RenderManager.instance;
-	public RenderEngine renderEngine = ModLoader.getMinecraftInstance().renderEngine;
-	public Minecraft mc = ModLoader.getMinecraftInstance();
 
 	@Override
 	public boolean handleRenderType(ItemStack is, ItemRenderType type)

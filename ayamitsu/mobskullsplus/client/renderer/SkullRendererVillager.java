@@ -1,9 +1,10 @@
 package ayamitsu.mobskullsplus.client.renderer;
 
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.RenderEngine;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.src.ModLoader;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -15,26 +16,26 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SkullRendererVillager implements ISkullRenderer
 {
-	/** �ő�̃T�C�Y��1.0F�Ƒz�� */
 	public static final float MIN = 0.0F;
 	public static final float MAX = 1.0F;
 	ModelBase model;
-	private String texture = "";
 	private float xSize = 0.5F;
 	private float ySize = 0.625F;
 	private float zSize = 0.5F;
 	private boolean isAlpha = false;
 	private final String iconPath;
+	protected ResourceLocation texture;
 
 	public SkullRendererVillager(String tex, ModelBase modelbase)
 	{
-		this.model = modelbase;
 		this.iconPath = tex;
+		this.model = modelbase;
+		this.texture = new ResourceLocation(tex);
 	}
 
 	public SkullRendererVillager setTextureFile(String str)
 	{
-		this.texture = str;
+		this.texture = new ResourceLocation(str);
 		return this;
 	}
 
@@ -49,6 +50,12 @@ public class SkullRendererVillager implements ISkullRenderer
 	public SkullRendererVillager setAlpha(boolean flag)
 	{
 		this.isAlpha = flag;
+		return this;
+	}
+
+	public SkullRendererVillager setResourceLocation(ResourceLocation location)
+	{
+		this.texture = location;
 		return this;
 	}
 
@@ -106,14 +113,13 @@ public class SkullRendererVillager implements ISkullRenderer
 	}
 
 	@SideOnly(Side.CLIENT)
-	protected void bindTextureByName(String par1Str)
+	protected void bindTextureByName(ResourceLocation location)
     {
-		RenderEngine var2 = ModLoader.getMinecraftInstance().renderEngine;
+		TextureManager renderengine = ModLoader.getMinecraftInstance().renderEngine;
 
-        if (var2 != null)
+        if (renderengine != null)
         {
-        	var2.func_98187_b(par1Str);
-            //var2.bindTexture(var2.getTexture(par1Str));
+        	renderengine.func_110577_a(location);
         }
     }
 }
