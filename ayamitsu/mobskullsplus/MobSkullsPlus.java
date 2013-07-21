@@ -49,7 +49,7 @@ public class MobSkullsPlus
 	// config
 	public static boolean addModSkullToTrade;
 
-	@Mod.PreInit
+	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
@@ -70,7 +70,7 @@ public class MobSkullsPlus
 		}
 	}
 
-	@Mod.Init
+	@Mod.EventHandler
 	public void init(FMLInitializationEvent event)
 	{
 		this.renderId = proxy.getUniqueRenderId();
@@ -112,9 +112,10 @@ public class MobSkullsPlus
 		BlockBoundsRegistry.registerBlockBounds(27, "Red Ocelot Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(28, "Black Ocelot Head", new BlockBoundsCube());
 		BlockBoundsRegistry.registerBlockBounds(29, "Ghast Fire Head", new BlockBoundsCube(1.0F, 1.0F, 1.0F));
+		BlockBoundsRegistry.registerBlockBounds(30, "Horse Head", new BlockBoundsCube(0.7F, 0.75F, 0.7F));
 	}
 
-	@Mod.PostInit
+	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		if (this.addModSkullToTrade)

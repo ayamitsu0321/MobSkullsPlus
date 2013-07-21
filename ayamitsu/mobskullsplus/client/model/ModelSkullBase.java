@@ -1,10 +1,12 @@
 package ayamitsu.mobskullsplus.client.model;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-@cpw.mods.fml.relauncher.SideOnly(cpw.mods.fml.relauncher.Side.CLIENT)
+@SideOnly(Side.CLIENT)
 public abstract class ModelSkullBase extends ModelBase
 {
 	public ModelRenderer skull;

@@ -9,6 +9,7 @@ import ayamitsu.mobskullsplus.client.model.ModelSkullChicken;
 import ayamitsu.mobskullsplus.client.model.ModelSkullCow;
 import ayamitsu.mobskullsplus.client.model.ModelSkullEnderman;
 import ayamitsu.mobskullsplus.client.model.ModelSkullGhast;
+import ayamitsu.mobskullsplus.client.model.ModelSkullHorse;
 import ayamitsu.mobskullsplus.client.model.ModelSkullIronGolem;
 import ayamitsu.mobskullsplus.client.model.ModelSkullMagmaCube;
 import ayamitsu.mobskullsplus.client.model.ModelSkullOcelot;
@@ -80,6 +81,7 @@ public class ClientProxy extends CommonProxy
 		RendererRegistry.registerSkullRenderer(27, ((SkullRendererDefault)new SkullRendererOcelot("cat_red", new ModelSkullOcelot()).setSize(0.5F, 0.5F, 0.5F)).setScale(1.125F).setTexture("textures/entity/cat/red.png"));
 		RendererRegistry.registerSkullRenderer(28, ((SkullRendererDefault)new SkullRendererOcelot("cat_black", new ModelSkullOcelot()).setSize(0.5F, 0.5F, 0.5F)).setScale(1.125F).setTexture("textures/entity/cat/black.png"));
 		RendererRegistry.registerSkullRenderer(29, ((SkullRendererCube)new SkullRendererCube("ghast_fire", new ModelSkullGhast())).setTexture("textures/entity/ghast/ghast_shooting.png"));
+		RendererRegistry.registerSkullRenderer(30, ((SkullRendererDefault)new SkullRendererDefault("horse", new ModelSkullHorse()).setTexture("textures/entity/horse/horse_black.png")));
 	}
 
 	@Override
